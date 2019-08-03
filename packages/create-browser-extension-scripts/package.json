@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "cross-spawn": "^6.0.5",
-    "fs-extra": "^8.1.0"
+    "fs-extra": "^8.1.0",
+    "webpack": "^4.39.1"
   }
 }
