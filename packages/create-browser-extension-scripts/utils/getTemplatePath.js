@@ -1,20 +1,17 @@
 const path = require('path');
 
-module.exports = function getTemplatePath(packageJson) {
-  const dependencies = packageJson.dependencies || {};
-  const templatesPath = [__dirname, '..', '..', 'templates'];
+const extPackage = require('./getExtPackage');
+const dependencies = extPackage.dependencies || {};
+const templatesPath = [__dirname, '..', '..', 'templates'];
 
-  if (dependencies.react && dependencies.typescript) {
-    return path.join(...templatesPath, 'react-typescript');
-  }
+let templatePath = path.join(...templatesPath, 'js');
 
-  if (dependencies.react) {
-    return path.join(...templatesPath, 'react');
-  }
+if (dependencies.react && dependencies.typescript) {
+  templatePath = path.join(...templatesPath, 'react-typescript');
+} else if (dependencies.react) {
+  templatePath = path.join(...templatesPath, 'react');
+} else if (dependencies.typescript) {
+  templatePath = path.join(...templatesPath, 'typescript');
+}
 
-  if (dependencies.typescript) {
-    return path.join(...templatesPath, 'typescript');
-  }
-
-  return path.join(...templatesPath, 'js');
-};
+module.exports = templatePath;
