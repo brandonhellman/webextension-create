@@ -8,5 +8,9 @@
   "license": "ISC",
   "bin": {
     "create-browser-extension-scripts": "./index.js"
+  },
+  "dependencies": {
+    "cross-spawn": "^6.0.5",
+    "fs-extra": "^8.1.0"
   }
 }
