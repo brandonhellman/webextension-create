@@ -1,1 +1,1 @@
-console.log('create-browser-extension-scripts dist ran');
+console.log('create-browser-ext-scripts dist ran');

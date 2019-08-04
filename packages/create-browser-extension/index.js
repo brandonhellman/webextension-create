@@ -74,7 +74,7 @@ async function createBrowserExtension(projectName, extensionName, version, useRe
   createPackageJson(projectRoot, projectName, extensionName, version);
   installDependencies(projectRoot, useReact, useTypescript);
 
-  spawn.sync('create-browser-extension-scripts', ['init'], { stdio: 'inherit', cwd: projectRoot });
+  spawn.sync('create-browser-ext-scripts', ['init'], { stdio: 'inherit', cwd: projectRoot });
 
   console.log(`Done creating ${chalk.green(projectName)}.`);
 }
@@ -93,7 +93,7 @@ async function createPackageJson(projectRoot, projectName, extensionName, versio
 }
 
 async function installDependencies(projectRoot, useReact, useTypescript) {
-  const dependencies = []; // 'create-browser-extension-scripts'
+  const dependencies = []; // 'create-browser-ext-scripts'
 
   if (useReact) {
     dependencies.push('react', 'react-dom');
