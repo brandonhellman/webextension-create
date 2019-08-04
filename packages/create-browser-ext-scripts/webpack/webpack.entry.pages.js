@@ -10,7 +10,6 @@ module.exports = pages.reduce((acc, filePath) => {
   if (ext.match(/(js|ts)(x)?/)) {
     return {
       ...acc,
-      [name]: filePath,
       ['pages/' + name]: filePath,
     };
   }
