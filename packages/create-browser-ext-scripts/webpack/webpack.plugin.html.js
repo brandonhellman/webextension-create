@@ -14,7 +14,7 @@ module.exports = pages.reduce((acc, file) => {
       new HtmlWebpackPlugin({
         template: path.join(extPath, 'src', 'pages', base),
         filename: 'pages/' + base,
-        chunks: [name],
+        chunks: ['pages/' + name],
       }),
     ];
   }
