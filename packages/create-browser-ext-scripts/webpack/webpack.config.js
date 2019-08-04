@@ -29,20 +29,19 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.m?js$/,
+        test: /\.(js|jsx|ts|tsx|mjs)$/,
         exclude: /node_modules/,
         include: path.join(extPath, 'src'),
         use: {
           loader: require.resolve('babel-loader'),
           options: {
-            presets: [require.resolve('@babel/preset-env')],
+            presets: [
+              require.resolve('@babel/preset-env'),
+              require.resolve('@babel/preset-react'),
+              require.resolve('@babel/preset-typescript'),
+            ],
           },
         },
-      },
-      {
-        test: /\.ts(x?)$/,
-        exclude: /node_modules/,
-        loader: require.resolve('ts-loader'),
       },
       {
         enforce: 'pre',
