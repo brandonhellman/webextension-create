@@ -2,7 +2,7 @@ const path = require('path');
 
 const extPackage = require('./getExtPackage');
 const dependencies = extPackage.dependencies || {};
-const templatesPath = [__dirname, '..', '..', 'templates'];
+const templatesPath = [__dirname, '..', 'templates'];
 
 let templatePath = path.join(...templatesPath, 'js');
 
