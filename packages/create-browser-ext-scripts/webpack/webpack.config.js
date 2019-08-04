@@ -4,6 +4,7 @@ const content_scripts = require('./webpack.entry.content_scripts');
 const pages = require('./webpack.entry.pages');
 const html = require('./webpack.plugin.html');
 const manifest = require('./webpack.plugin.manifest');
+const public = require('./webpack.plugin.public');
 
 const extPath = require('../utils/getExtPath');
 
@@ -55,5 +56,5 @@ module.exports = {
     ],
   },
 
-  plugins: [...html, manifest],
+  plugins: [...html, manifest, public],
 };
