@@ -1,3 +1,5 @@
+const path = require('path');
+
 const content_scripts = require('./webpack.entry.content_scripts');
 const pages = require('./webpack.entry.pages');
 const html = require('./webpack.plugin.html');
@@ -26,18 +28,29 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.m?js$/,
+        exclude: /node_modules/,
+        include: path.join(extPath, 'src'),
+        use: {
+          loader: require.resolve('babel-loader'),
+          options: {
+            presets: [require.resolve('@babel/preset-env')],
+          },
+        },
+      },
+      {
         test: /\.ts(x?)$/,
         exclude: /node_modules/,
-        loader: 'ts-loader',
+        loader: require.resolve('ts-loader'),
       },
       {
         enforce: 'pre',
         test: /\.js$/,
-        loader: 'source-map-loader',
+        loader: require.resolve('source-map-loader'),
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        use: [require.resolve('style-loader'), require.resolve('css-loader')],
       },
     ],
   },
