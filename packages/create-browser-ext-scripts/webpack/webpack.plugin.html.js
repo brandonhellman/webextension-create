@@ -8,11 +8,11 @@ const pages = recursiveReaddirSync(path.join(extPath, 'src', 'pages'));
 module.exports = pages.reduce((acc, file) => {
   const { base, ext, name } = path.parse(file);
 
-  if (ext && ext.match(/html/)) {
+  if (ext.match(/html/)) {
     return [
       ...acc,
       new HtmlWebpackPlugin({
-        template: path.join(__dirname, 'src', 'pages', base),
+        template: path.join(extPath, 'src', 'pages', base),
         filename: name + '.html',
         chunks: [name],
       }),
