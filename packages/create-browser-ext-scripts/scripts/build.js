@@ -14,7 +14,7 @@ compiler.run((err, stats) => {
     const messages = webpackFormatMessages(stats);
 
     if (!messages.errors.length && !messages.warnings.length) {
-      console.log(`Compiled successfully in ${stats.endTime - stats.startTime}ms!'`);
+      console.log(`Compiled successfully in ${stats.endTime - stats.startTime}ms!`);
     } else if (messages.errors.length) {
       console.log('Failed to compile.');
       messages.errors.forEach((e) => console.log(e));
