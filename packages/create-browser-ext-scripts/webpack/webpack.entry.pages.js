@@ -11,6 +11,7 @@ module.exports = pages.reduce((acc, filePath) => {
     return {
       ...acc,
       [name]: filePath,
+      ['pages/' + name]: filePath,
     };
   }
 
