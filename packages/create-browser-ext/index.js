@@ -1,99 +1,84 @@
 #!/usr/bin/env node
 
 const chalk = require('chalk');
+const commander = require('commander');
 const fs = require('fs-extra');
-const inquirer = require('inquirer');
 const path = require('path');
 const spawn = require('cross-spawn');
 const validate = require('validate-npm-package-name');
 
-const questions = [
-  {
-    type: 'input',
-    name: 'projectName',
-    message: 'Project name',
-    default: 'my-web-extension',
-    validate(value) {
-      const valid = validate(value);
+const package = fs.readJsonSync(path.join(__dirname, 'package.json'));
 
-      if (!valid.validForNewPackages) {
-        if (valid.errors) return valid.errors[0];
-        if (valid.warnings) return valid.warnings[0];
-      }
+let extName;
 
-      const pathExists = fs.existsSync(path.resolve(value));
+const program = new commander.Command(package.name)
+  .version(package.version)
+  .arguments('<project-directory>')
+  .usage(`${chalk.green('<project-directory>')} [options]`)
+  .option('-r, --react', 'Use React in your extension.')
+  .option('-t, --typescript', 'Use Typescript in your extension.')
+  .option('--dev')
+  .action((dir) => {
+    extName = dir;
+  })
+  .parse(process.argv);
 
-      if (pathExists) {
-        return 'The path already exists! Please try a different name or delete the folder.';
-      }
+if (!extName) {
+  console.error('Please specify the project directory:');
+  console.log(`  ${chalk.cyan(program.name())} ${chalk.green('<project-directory>')}`);
+  console.log();
+  console.log('For example:');
+  console.log(`  ${chalk.cyan(program.name())} ${chalk.green('my-browser-ext')}`);
+  console.log();
+  console.log(`Run ${chalk.cyan(`${program.name()} --help`)} to see all options.`);
+  process.exit(1);
+}
 
-      return true;
-    },
-  },
-  {
-    type: 'input',
-    name: 'extensionName',
-    message: 'Extension name',
-    default: 'My Web Extension',
-  },
-  {
-    type: 'input',
-    name: 'version',
-    message: 'Version',
-    default: '0.0.0',
-  },
-  {
-    type: 'confirm',
-    name: 'useReact',
-    message: 'Do you want to use React?',
-    default: false,
-  },
-  {
-    type: 'confirm',
-    name: 'useTypescript',
-    message: 'Do you want to use Typescript?',
-    default: false,
-  },
-];
+const valid = validate(extName);
 
-inquirer.prompt(questions).then((answers) => {
-  createBrowserExtension(
-    answers.projectName,
-    answers.extensionName,
-    answers.version,
-    answers.useReact,
-    answers.useTypescript,
-  );
-});
+if (!valid.validForNewPackages) {
+  console.log('Invalid directory name:');
+  if (valid.errors) console.log(`  ${valid.errors[0]}`);
+  if (valid.warnings) console.log(`  ${valid.warnings[0]}`);
+  process.exit(1);
+}
 
-async function createBrowserExtension(projectName, extensionName, version, useReact, useTypescript) {
-  const projectRoot = path.resolve(projectName);
+const pathExists = fs.existsSync(path.resolve(extName));
 
-  fs.ensureDirSync(projectName);
+if (pathExists) {
+  console.log('The path already exists! Please try a different name or delete the folder.');
+  process.exit(1);
+}
 
-  createPackageJson(projectRoot, projectName, extensionName, version);
-  installDependencies(projectRoot, useReact, useTypescript);
+createBrowserExtension(extName, program.react, program.typescript, program.dev);
+
+function createBrowserExtension(extName, useReact, useTypescript, isDev) {
+  const projectRoot = path.resolve(extName);
+
+  fs.ensureDirSync(extName);
+
+  createPackageJson(projectRoot, extName);
+  installDependencies(projectRoot, useReact, useTypescript, isDev);
 
   spawn.sync('create-browser-ext-scripts', ['init'], { stdio: 'inherit', cwd: projectRoot });
 
-  console.log(`Done creating ${chalk.green(projectName)}.`);
+  console.log(`Done creating ${chalk.green(extName)}.`);
 }
 
-async function createPackageJson(projectRoot, projectName, extensionName, version) {
+function createPackageJson(projectRoot, extName) {
   console.log(`Creating a new browser extension in ${chalk.green(projectRoot)}.`);
   console.log();
 
   const packageJson = {
-    name: projectName,
-    extensionName: extensionName,
-    version: version,
+    name: extName,
+    version: '0.1.0',
   };
 
   fs.outputJsonSync(path.join(projectRoot, 'package.json'), packageJson, { spaces: 2 });
 }
 
-async function installDependencies(projectRoot, useReact, useTypescript) {
-  const dependencies = []; // 'create-browser-ext-scripts'
+function installDependencies(projectRoot, useReact, useTypescript, isDev) {
+  const dependencies = isDev ? [] : ['create-browser-ext-scripts'];
 
   if (useReact) {
     dependencies.push('react', 'react-dom');
@@ -111,4 +96,11 @@ async function installDependencies(projectRoot, useReact, useTypescript) {
   console.log();
 
   spawn.sync('npm', ['install', ...dependencies, '-S'], { stdio: 'inherit', cwd: projectRoot });
+
+  if (isDev) {
+    console.log(`Linking dependencies in ${chalk.green(projectRoot)}.`);
+    console.log();
+
+    spawn.sync('npm', ['link', 'create-browser-ext-scripts'], { stdio: 'inherit', cwd: projectRoot });
+  }
 }
