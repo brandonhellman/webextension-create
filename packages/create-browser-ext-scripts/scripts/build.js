@@ -2,6 +2,8 @@ const webpack = require('webpack');
 
 const webpackConfig = require('../webpack/webpack.config');
 
+require('../utils/tsconfigSetup');
+
 const compiler = webpack(webpackConfig);
 
 compiler.run((err, stats) => {

@@ -5,6 +5,8 @@ const extPackage = require('../utils/getExtPackage');
 const extPath = require('../utils/getExtPath');
 const templatePath = require('../utils/getTemplatePath');
 
+require('../utils/tsconfigSetup');
+
 extPackage.scripts = {
   build: 'create-browser-ext-scripts build',
   dist: 'create-browser-ext-scripts dist',
