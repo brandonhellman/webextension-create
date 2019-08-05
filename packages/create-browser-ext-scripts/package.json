@@ -1,6 +1,6 @@
 {
   "name": "create-browser-ext-scripts",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Configuration and scripts for Create Browser Extension.",
   "license": "ISC",
   "bin": {
