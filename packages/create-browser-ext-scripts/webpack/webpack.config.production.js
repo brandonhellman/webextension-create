@@ -1,4 +1,5 @@
 const path = require('path');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const content_scripts = require('./webpack.entry.content_scripts');
 const pages = require('./webpack.entry.pages');
@@ -48,5 +49,5 @@ module.exports = {
     ],
   },
 
-  plugins: [...html, manifest, public],
+  plugins: [new CleanWebpackPlugin(), ...html, manifest, public],
 };
