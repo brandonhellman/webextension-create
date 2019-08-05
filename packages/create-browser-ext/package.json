@@ -1,6 +1,6 @@
 {
   "name": "create-browser-ext",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Create web extensions with no build configuration.",
   "license": "ISC",
   "bin": {
