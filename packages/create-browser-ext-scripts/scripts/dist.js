@@ -1,1 +1,0 @@
-console.log('create-browser-ext-scripts dist ran');
