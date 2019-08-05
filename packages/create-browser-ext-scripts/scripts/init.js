@@ -14,3 +14,5 @@ extPackage.scripts = {
 
 fs.outputJsonSync(path.join(extPath, 'package.json'), extPackage, { spaces: 2 });
 fs.copySync(templatePath, extPath);
+fs.copySync(path.join(__dirname, '..', 'templates', '.gitignore'), path.join(extPath, '.gitignore'));
+fs.copySync(path.join(__dirname, '..', 'templates', 'README.md'), path.join(extPath, 'README.md'));
