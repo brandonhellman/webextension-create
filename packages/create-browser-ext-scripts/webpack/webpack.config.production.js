@@ -15,7 +15,7 @@ module.exports = {
   },
 
   output: {
-    path: extPath + '/build',
+    path: extPath + '/build/unpacked',
   },
 
   mode: 'production',

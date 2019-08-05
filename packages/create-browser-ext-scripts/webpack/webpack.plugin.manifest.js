@@ -7,7 +7,7 @@ const extPath = require('../utils/getExtPath');
 module.exports = new CopyWebpackPlugin([
   {
     from: path.join(extPath, 'src', 'manifest.json'),
-    to: path.join(extPath, 'build', 'manifest.json'),
+    to: path.join(extPath, 'build', 'unpacked', 'manifest.json'),
     transform(content) {
       return content
         .toString()
