@@ -4,8 +4,8 @@ const args = process.argv.slice(2);
 const script = args[0];
 
 switch (script) {
+  case 'start':
   case 'build':
-  case 'dist':
   case 'init':
     require(`./scripts/${script}`);
     break;
