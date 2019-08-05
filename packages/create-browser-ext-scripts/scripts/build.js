@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const webpackFormatMessages = require('webpack-format-messages');
 
-const webpackConfig = require('../webpack/webpack.config');
+const webpackConfig = require('../webpack/webpack.config.production');
 
 require('../utils/tsconfigSetup');
 
