@@ -54,9 +54,13 @@ my-ext
 
 No additional configuration is needed.
 
+⚠️--- Temporary --- ⚠️
+
 All [content scripts](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Content_scripts) need to be located in `/src/content_scripts/`.
 
 All [extension pages](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/user_interface/Extension_pages) need to be located in `/src/pages/`.
+
+⚠️ --- Temporary --- ⚠️
 
 Once the installation is done, you can open your project folder:
 
@@ -66,6 +70,14 @@ cd my-ext
 
 and run some build in commands
 
-### `npm start`
+### `npm run start`
 
-### `npm build`
+Compiles the extension into `/build/unpacked/`. Load this folder into your broswer for development. The extension automatically reloads when you save changes to the code.
+
+[Chrome installation](https://developer.chrome.com/extensions/getstarted)
+
+[Firefox installation](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Temporary_Installation_in_Firefox)
+
+### `npm run build`
+
+Compiles the extension and packages them into production ready zips at `/build/{target}-{version}.zip`. These zips can then be uploaded to their respective extension stores.
