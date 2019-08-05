@@ -7,7 +7,7 @@ require('../utils/tsconfigSetup');
 
 const compiler = webpack(webpackConfig);
 
-compiler.run((err, stats) => {
+compiler.watch({ aggregateTimeout: 300, poll: 1000 }, (err, stats) => {
   if (err) {
     console.log(err);
   } else {
