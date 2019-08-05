@@ -20,8 +20,6 @@ module.exports = {
 
   mode: 'production',
 
-  devtool: 'source-map',
-
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.css'],
   },
@@ -42,11 +40,6 @@ module.exports = {
             ],
           },
         },
-      },
-      {
-        enforce: 'pre',
-        test: /\.js$/,
-        loader: require.resolve('source-map-loader'),
       },
       {
         test: /\.css$/,
