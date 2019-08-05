@@ -21,6 +21,7 @@
     "source-map-loader": "^0.2.4",
     "style-loader": "^0.23.1",
     "webpack": "^4.39.1",
+    "webpack-extension-reloader": "^1.1.0",
     "webpack-format-messages": "^2.0.5"
   }
 }
