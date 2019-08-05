@@ -68,7 +68,7 @@ Once the installation is done, you can open your project folder:
 cd my-ext
 ```
 
-and run some build in commands
+and run some commands:
 
 ### `npm run start`
 
