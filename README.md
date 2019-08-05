@@ -54,13 +54,13 @@ my-ext
 
 No additional configuration is needed.
 
-⚠️--- Temporary --- ⚠️
+⚠️⚠️⚠️ Temporary ⚠️⚠️⚠️
 
 All [content scripts](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Content_scripts) need to be located in `/src/content_scripts/`.
 
 All [extension pages](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/user_interface/Extension_pages) need to be located in `/src/pages/`.
 
-⚠️ --- Temporary --- ⚠️
+⚠️⚠️⚠️ Temporary ⚠️⚠️⚠️
 
 Once the installation is done, you can open your project folder:
 
