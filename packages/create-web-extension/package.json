@@ -1,6 +1,6 @@
 {
   "name": "create-web-extension",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Create web extensions with no build configuration.",
   "license": "ISC",
   "bin": {
