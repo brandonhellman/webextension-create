@@ -1,5 +1,5 @@
 {
-  "name": "create-web-extension",
+  "name": "@kadauchi/create-web-extension",
   "version": "0.1.2",
   "description": "Create web extensions with no build configuration.",
   "license": "ISC",
