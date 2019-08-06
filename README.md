@@ -1,12 +1,12 @@
-# create-browser-ext
+# create-web-extension
 
-Create browser extensions with no build configuration. Inspired by [create-react-app](https://github.com/facebook/create-react-app).
+Create web extensions with no build configuration. Inspired by [create-react-app](https://github.com/facebook/create-react-app).
 
 # Quick Start
 
 ```
-npx create-browser-ext my-ext
-cd my-ext
+npx create-web-extension my-web-extension
+cd my-web-extension
 npm start
 ```
 
@@ -21,7 +21,7 @@ To create an extension you can use the following method:
 Usage:
 
 ```
-npx create-browser-ext <project-directory> [options]
+npx create-web-extension <project-directory> [options]
 ```
 
 Options:
@@ -29,10 +29,10 @@ Options:
 - `-r` or `--react` Use React in your extension.
 - `-t` or `--typescript` Use Typescript in your extension.
 
-This will create a directory called `my-ext` inside the current folder. The initial structure for the project is generated from the options passed to the the CLI and all dependencies installed.
+This will create a directory called `my-web-extension` inside the current folder. The initial structure for the project is generated from the options passed to the the CLI and all dependencies installed.
 
 ```
-my-ext
+my-web-extension
 ├── node_modules
 ├── public
 │   ├── icon.png
@@ -65,7 +65,7 @@ All [extension pages](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/W
 Once the installation is done, you can open your project folder:
 
 ```
-cd my-ext
+cd my-web-extension
 ```
 
 and run some commands:

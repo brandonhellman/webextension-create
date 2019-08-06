@@ -1,4 +1,4 @@
-This project was bootstrapped with [Create Browser Ext](https://github.com/kadauchi/create-browser-ext).
+This project was bootstrapped with [Create Web Extension](https://github.com/kadauchi/create-web-extension).
 
 ## Available Scripts
 
@@ -14,4 +14,4 @@ Compiles the extension and packages them into production ready zips at `/build/{
 
 ---
 
-Documentation: https://github.com/kadauchi/create-browser-ext#create-browser-ext
+Documentation: https://github.com/kadauchi/create-web-extension#create-web-extension

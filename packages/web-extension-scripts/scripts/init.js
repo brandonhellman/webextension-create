@@ -8,8 +8,8 @@ const templatePath = require('../utils/getTemplatePath');
 require('../utils/tsconfigSetup');
 
 extPackage.scripts = {
-  start: 'create-browser-ext-scripts start',
-  build: 'create-browser-ext-scripts build',
+  start: 'web-extension-scripts start',
+  build: 'web-extension-scripts build',
 };
 
 fs.outputJsonSync(path.join(extPath, 'package.json'), extPackage, { spaces: 2 });
