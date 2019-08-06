@@ -1,5 +1,5 @@
-# create-browser-ext-scripts
+# create-web-extension-scripts
 
-This package includes scripts and configuration used by [Create Browser Ext](https://github.com/kadauchi/create-browser-ext).
+This package includes scripts and configuration used by [Create Browser Ext](https://github.com/kadauchi/create-web-extension).
 
-Documentation: https://github.com/kadauchi/create-browser-ext#create-browser-ext
+Documentation: https://github.com/kadauchi/create-web-extension#create-web-extension

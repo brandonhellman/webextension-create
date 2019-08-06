@@ -1,10 +1,10 @@
 {
-  "name": "create-browser-ext-scripts",
+  "name": "create-web-extension-scripts",
   "version": "0.1.1",
   "description": "Configuration and scripts for Create Browser Extension.",
   "license": "ISC",
   "bin": {
-    "create-browser-ext-scripts": "./index.js"
+    "create-web-extension-scripts": "./index.js"
   },
   "dependencies": {
     "@babel/core": "^7.5.5",

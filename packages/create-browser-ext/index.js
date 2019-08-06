@@ -60,7 +60,7 @@ function createBrowserExtension(extName, useReact, useTypescript, isDev) {
   createPackageJson(projectRoot, extName);
   installDependencies(projectRoot, useReact, useTypescript, isDev);
 
-  spawn.sync('create-browser-ext-scripts', ['init'], { stdio: 'inherit', cwd: projectRoot });
+  spawn.sync('create-web-extension-scripts', ['init'], { stdio: 'inherit', cwd: projectRoot });
 
   console.log(`Done creating ${chalk.green(extName)}.`);
 }
@@ -78,7 +78,7 @@ function createPackageJson(projectRoot, extName) {
 }
 
 function installDependencies(projectRoot, useReact, useTypescript, isDev) {
-  const dependencies = isDev ? [] : ['create-browser-ext-scripts'];
+  const dependencies = isDev ? [] : ['create-web-extension-scripts'];
 
   if (useReact) {
     dependencies.push('react', 'react-dom');
@@ -101,6 +101,6 @@ function installDependencies(projectRoot, useReact, useTypescript, isDev) {
     console.log(`Linking dependencies in ${chalk.green(projectRoot)}.`);
     console.log();
 
-    spawn.sync('npm', ['link', 'create-browser-ext-scripts'], { stdio: 'inherit', cwd: projectRoot });
+    spawn.sync('npm', ['link', 'create-web-extension-scripts'], { stdio: 'inherit', cwd: projectRoot });
   }
 }

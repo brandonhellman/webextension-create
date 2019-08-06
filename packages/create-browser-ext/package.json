@@ -1,10 +1,10 @@
 {
-  "name": "create-browser-ext",
+  "name": "create-web-extension",
   "version": "0.1.1",
   "description": "Create web extensions with no build configuration.",
   "license": "ISC",
   "bin": {
-    "create-browser-ext": "./index.js"
+    "create-web-extension": "./index.js"
   },
   "dependencies": {
     "chalk": "^2.4.2",

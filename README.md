@@ -1,11 +1,11 @@
-# create-browser-ext
+# create-web-extension
 
 Create browser extensions with no build configuration. Inspired by [create-react-app](https://github.com/facebook/create-react-app).
 
 # Quick Start
 
 ```
-npx create-browser-ext my-ext
+npx create-web-extension my-ext
 cd my-ext
 npm start
 ```
@@ -21,7 +21,7 @@ To create an extension you can use the following method:
 Usage:
 
 ```
-npx create-browser-ext <project-directory> [options]
+npx create-web-extension <project-directory> [options]
 ```
 
 Options:
