@@ -1,7 +1,7 @@
 {
   "name": "create-web-extension-scripts",
   "version": "0.1.1",
-  "description": "Configuration and scripts for Create Browser Extension.",
+  "description": "Configuration and scripts for Create Web Extension.",
   "license": "ISC",
   "bin": {
     "create-web-extension-scripts": "./index.js"
