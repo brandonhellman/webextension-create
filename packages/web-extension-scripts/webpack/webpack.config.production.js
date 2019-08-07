@@ -39,6 +39,7 @@ module.exports = {
               require.resolve('@babel/preset-react'),
               require.resolve('@babel/preset-typescript'),
             ],
+            plugins: [require.resolve('@babel/plugin-transform-runtime')],
           },
         },
       },
