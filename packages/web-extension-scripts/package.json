@@ -1,6 +1,6 @@
 {
   "name": "web-extension-scripts",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Configuration and scripts for Create Web Extension.",
   "license": "ISC",
   "bin": {
