@@ -1,12 +1,12 @@
-# create-web-extension
+# webextension-create
 
 Create web extensions with no build configuration. Inspired by [create-react-app](https://github.com/facebook/create-react-app).
 
 # Quick Start
 
 ```
-npx create-web-extension my-web-extension
-cd my-web-extension
+npx webextension-create my-webextension
+cd my-webextension
 npm start
 ```
 
@@ -21,7 +21,7 @@ To create an extension you can use the following method:
 Usage:
 
 ```
-npx create-web-extension <project-directory> [options]
+npx webextension-create <project-directory> [options]
 ```
 
 Options:

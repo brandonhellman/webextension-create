@@ -1,5 +1,5 @@
-# web-extension-scripts
+# webextension-scripts
 
-This package includes scripts and configuration used by [Create Web Extension](https://github.com/kadauchi/create-web-extension).
+This package includes scripts and configuration used by [WebExtension Create](https://github.com/kadauchi/webextension-create).
 
-Documentation: https://github.com/kadauchi/create-web-extension#create-web-extension
+Documentation: https://github.com/kadauchi/webextension-create#webextension-create
