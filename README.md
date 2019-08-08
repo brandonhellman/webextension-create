@@ -29,10 +29,10 @@ Options:
 - `-r` or `--react` Use React in your extension.
 - `-t` or `--typescript` Use Typescript in your extension.
 
-This will create a directory called `my-web-extension` inside the current folder. The initial structure for the project is generated from the options passed to the the CLI and all dependencies installed.
+The initial structure for the project is generated from the options passed to the the CLI and all dependencies installed.
 
 ```
-my-web-extension
+project-directory
 ├── node_modules
 ├── public
 │   ├── icon.png
@@ -56,28 +56,35 @@ No additional configuration is needed.
 
 ⚠️⚠️⚠️ Temporary ⚠️⚠️⚠️
 
-All [content scripts](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Content_scripts) need to be located in `/src/content_scripts/`.
+All [content scripts](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Content_scripts) need to be located in `project-directory/src/content_scripts`.
 
-All [extension pages](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/user_interface/Extension_pages) need to be located in `/src/pages/`.
+All [extension pages](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/user_interface/Extension_pages) need to be located in `project-directory/src/pages`.
 
 ⚠️⚠️⚠️ Temporary ⚠️⚠️⚠️
 
-Once the installation is done, you can open your project folder:
+## Available Scripts
 
-```
-cd my-web-extension
-```
-
-and run some commands:
+In the project directory, you can run:
 
 ### `npm run start`
 
-Compiles the extension into `/build/unpacked/`. Load this folder into your broswer for development. The extension automatically reloads when you save changes to the code.
+Compiles the extension into `project-directory/build/unpacked` to be loaded into your broswer for development. The extension automatically reloads when you save changes to the code.
 
-[Chrome installation](https://developer.chrome.com/extensions/getstarted)
+##### Load into Chrome
 
-[Firefox installation](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Temporary_Installation_in_Firefox)
+1. Open Chrome
+2. Go to `chrome://extensions`
+3. Turn on `Developer mode`
+4. Click `Load unpacked`
+5. Select folder `project-directory/build/unpacked`
+
+##### Load into Firefox
+
+1. Open Firefox
+2. Go to `about:debugging`
+3. Click `Load Temporary Add-on...`
+4. Open `project-directory/build/unpacked/manifest.json`
 
 ### `npm run build`
 
-Compiles the extension and packages them into production ready zips at `/build/{target}-{version}.zip`. These zips can then be uploaded to their respective extension stores.
+Compiles the extension into `project-directory/build/unpacked` and then packages that into production ready zips at `project-directory/build/{target}-{version}.zip`.
