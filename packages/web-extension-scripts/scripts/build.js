@@ -24,7 +24,7 @@ compiler.run((err, stats) => {
         console.log(`Compiled successfully in ${stats.endTime - stats.startTime}ms!`);
       }
 
-      require('../utils/zipUnpacked');
+      require('../utils/archiveUnpacked');
     }
   }
 });
