@@ -2,16 +2,6 @@
 
 Create web extensions with no build configuration. Inspired by [create-react-app](https://github.com/facebook/create-react-app).
 
-# Quick Start
-
-```
-npx webextension-create my-webextension
-cd my-webextension
-npm start
-```
-
-Then load the extension into your browser to begin development. Once you are ready to upload your extension for others to use you can create a minified bundle with `npm run build`.
-
 ## Creating an Extension
 
 To create an extension you can use the following method:
@@ -52,17 +42,14 @@ project-directory
 
 <sub>**(items in parenthesis show file differences based on the options passed)**</sub>
 
-No additional configuration is needed.
-
-⚠️⚠️⚠️ Temporary ⚠️⚠️⚠️
-
-All [content scripts](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Content_scripts) need to be located in `./src/content_scripts`.
-
-All [extension pages](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/user_interface/Extension_pages) need to be located in `./src/pages`.
-
-⚠️⚠️⚠️ Temporary ⚠️⚠️⚠️
-
 ## Available Scripts
+
+⚠️⚠️⚠️ Temporary ⚠️⚠️⚠️
+
+- All [content scripts](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Content_scripts) must be located in `./src/content_scripts`.
+- All [extension pages](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/user_interface/Extension_pages) must be located in `./src/pages`.
+
+⚠️⚠️⚠️ Temporary ⚠️⚠️⚠️
 
 In the project directory, you can run:
 
