@@ -1,10 +1,10 @@
 {
-  "name": "web-extension-scripts",
+  "name": "webextension-scripts",
   "version": "0.1.5",
-  "description": "Configuration and scripts for Create Web Extension.",
+  "description": "Configuration and scripts for WebExtension Create.",
   "license": "ISC",
   "bin": {
-    "web-extension-scripts": "./index.js"
+    "webextension-scripts": "./index.js"
   },
   "dependencies": {
     "@babel/core": "^7.5.5",
