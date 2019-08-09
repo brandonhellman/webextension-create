@@ -15,11 +15,13 @@ fs.outputJsonSync(paths.extPackageJson, package, { spaces: 2 });
 fs.copySync(paths.templatesGitignore, paths.extGitignore);
 fs.copySync(paths.templatesReadme, paths.extReadme);
 
-if (package.dependencies.react && package.dependencies.typescript) {
+const dependencies = package.dependencies || {};
+
+if (dependencies.react && dependencies.typescript) {
   fs.copySync(paths.templatesReactTypescript, paths.extRoot);
-} else if (package.dependencies.react) {
+} else if (dependencies.react) {
   fs.copySync(paths.templatesReact, paths.extRoot);
-} else if (package.dependencies.typescript) {
+} else if (dependencies.typescript) {
   fs.copySync(paths.templatesTypescript, paths.extRoot);
 } else {
   fs.copySync(paths.templatesJs, paths.extRoot);

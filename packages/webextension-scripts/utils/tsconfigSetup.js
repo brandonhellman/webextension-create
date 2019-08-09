@@ -5,7 +5,7 @@ const paths = require('./paths');
 
 const tsconfigExists = fs.existsSync(paths.extTsconfigJson);
 
-if (packageJson.dependencies.typescript && !tsconfigExists) {
+if (packageJson.dependencies && packageJson.dependencies.typescript && !tsconfigExists) {
   console.log('Setting up tsconfig.json');
 
   const tsconfig = {
