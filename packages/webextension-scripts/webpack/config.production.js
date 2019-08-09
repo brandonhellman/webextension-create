@@ -1,17 +1,10 @@
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const paths = require('../utils/paths');
-const content_scripts = require('./webpack.entry.content_scripts');
-const pages = require('./webpack.entry.pages');
-const html = require('./webpack.plugin.html');
-const manifest = require('./webpack.plugin.manifest');
-const public = require('./webpack.plugin.public');
+const webextension = require('./webextension');
 
 module.exports = {
-  entry: {
-    ...content_scripts,
-    ...pages,
-  },
+  entry: webextension.entry,
 
   output: {
     path: paths.extUnpacked,
@@ -48,5 +41,5 @@ module.exports = {
     ],
   },
 
-  plugins: [new CleanWebpackPlugin(), ...html, manifest, public],
+  plugins: [new CleanWebpackPlugin(), ...webextension.plugins],
 };
