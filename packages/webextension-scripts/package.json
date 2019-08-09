@@ -19,6 +19,7 @@
     "copy-webpack-plugin": "^5.0.4",
     "cross-spawn": "^6.0.5",
     "css-loader": "^3.2.0",
+    "flat": "^4.1.0",
     "fs-extra": "^8.1.0",
     "generate-json-webpack-plugin": "^0.3.1",
     "glob": "^7.1.4",
