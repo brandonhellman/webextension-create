@@ -1,3 +1,4 @@
+const flatten = require('flat');
 const fs = require('fs-extra');
 const glob = require('glob');
 const { JSDOM } = require('jsdom');
@@ -14,7 +15,7 @@ const manifestJsonExists = fs.pathExistsSync(paths.extManifestJson);
 
 const reloaderEntries = { contentScript: [], background: undefined };
 const webpackEntries = {};
-const webpackPlugins = [new CopyWebpackPlugin([{ from: paths.extPublic, to: paths.extUnpacked }])];
+const webpackPlugins = [];
 
 let manifest;
 let polyfill;
@@ -39,6 +40,23 @@ if (!manifest) {
 
   webpackPlugins.push(new GenerateJsonPlugin('manifest.json', JSON.parse(replaced)));
 }
+
+// Look for any .png in the manifest and copy it over.
+Object.values(flatten(manifest)).forEach((value) => {
+  if (typeof value === 'string') {
+    const { ext } = path.parse(value);
+
+    if (ext === '.png') {
+      webpackPlugins.push(
+        new CopyWebpackPlugin([
+          {
+            from: path.join(paths.extSrc, value),
+          },
+        ]),
+      );
+    }
+  }
+});
 
 if (manifest.background && manifest.background.scripts) {
   manifest.background.scripts.forEach((script) => {
