@@ -8,6 +8,10 @@ function resolveExt(relativePath) {
   return path.resolve(extDirectory, relativePath);
 }
 
+function resolveScripts(relativePath) {
+  return path.resolve(scriptsDirectory, 'templates', relativePath);
+}
+
 function resolveTemplates(relativePath) {
   return path.resolve(scriptsDirectory, 'templates', relativePath);
 }
@@ -18,10 +22,13 @@ module.exports = {
   extUnpacked: resolveExt('build/unpacked'),
   extPublic: resolveExt('public'),
   extSrc: resolveExt('src'),
+  extManifestJs: resolveExt('src/manifest.js'),
+  extManifestJson: resolveExt('src/manifest.json'),
   extPackageJson: resolveExt('package.json'),
   extTsconfigJson: resolveExt('tsconfig.json'),
   extGitignore: resolveExt('.gitignore'),
   extReadme: resolveExt('README.md'),
+  scriptsNodeModules: resolveScripts('node_modules'),
   templatesRoot: resolveTemplates('.'),
   templatesJs: resolveTemplates('js'),
   templatesReact: resolveTemplates('react'),
