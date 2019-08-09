@@ -2,8 +2,8 @@ const path = require('path');
 const recursiveReaddirSync = require('recursive-readdir-sync');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const extPath = require('../utils/getExtPath');
-const pages = recursiveReaddirSync(path.join(extPath, 'src', 'pages'));
+const paths = require('../utils/paths');
+const pages = recursiveReaddirSync(path.join(paths.extSrc, 'pages'));
 
 module.exports = pages.reduce((acc, file) => {
   const { base, ext, name } = path.parse(file);
@@ -12,7 +12,7 @@ module.exports = pages.reduce((acc, file) => {
     return [
       ...acc,
       new HtmlWebpackPlugin({
-        template: path.join(extPath, 'src', 'pages', base),
+        template: path.join(paths.extSrc, 'pages', base),
         filename: 'pages/' + base,
         chunks: ['pages/' + name],
       }),

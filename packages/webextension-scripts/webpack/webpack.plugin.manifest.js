@@ -1,18 +1,18 @@
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-const extPackage = require('../utils/getExtPackage');
-const extPath = require('../utils/getExtPath');
+const packageJson = require('../utils/packageJson');
+const paths = require('../utils/paths');
 
 module.exports = new CopyWebpackPlugin([
   {
-    from: path.join(extPath, 'src', 'manifest.json'),
-    to: path.join(extPath, 'build', 'unpacked', 'manifest.json'),
+    from: path.join(paths.extSrc, 'manifest.json'),
+    to: path.join(paths.extUnpacked, 'manifest.json'),
     transform(content) {
       return content
         .toString()
-        .replace(/__package\.name__/g, extPackage.name)
-        .replace(/__package\.version__/g, extPackage.version);
+        .replace(/__package\.name__/g, packageJson.name)
+        .replace(/__package\.version__/g, packageJson.version);
     },
   },
 ]);

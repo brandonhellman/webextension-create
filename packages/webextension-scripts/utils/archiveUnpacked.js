@@ -1,13 +1,11 @@
 const archiver = require('archiver');
 const fs = require('fs-extra');
-const path = require('path');
 
-const extPath = require('./getExtPath');
-const unpackedPath = path.join(extPath, 'build', 'unpacked');
-const package = fs.readJsonSync('./package.json');
+const packageJson = require('./packageJson');
+const paths = require('./paths');
 
 ['chrome', 'firefox'].forEach((target) => {
-  const zipName = `${target}-${package.version}`;
+  const zipName = `${target}-${packageJson.version}`;
   const zipPath = `build/${zipName}.zip`;
 
   fs.removeSync(zipPath);
@@ -50,15 +48,15 @@ const package = fs.readJsonSync('./package.json');
   archive.pipe(output);
 
   if (target === 'chrome') {
-    archive.directory(unpackedPath, zipName);
+    archive.directory(paths.extUnpacked, zipName);
   } else if (target === 'firefox') {
-    archive.directory(unpackedPath, false);
+    archive.directory(paths.extUnpacked, false);
   }
 
   archive.finalize();
 });
 
-const sourceZipName = `source-${package.version}`;
+const sourceZipName = `source-${packageJson.version}`;
 const sourceZipPath = `build/${sourceZipName}.zip`;
 
 fs.removeSync(sourceZipPath);
@@ -102,7 +100,7 @@ sourceArchive.pipe(sourceOutput);
 
 // sourceArchive.directory(extPath, false);
 sourceArchive.glob('**', {
-  cwd: extPath,
+  cwd: paths.extRoot,
   ignore: ['build/**', 'node_modules/**'],
 });
 

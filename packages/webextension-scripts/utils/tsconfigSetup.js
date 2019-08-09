@@ -1,14 +1,11 @@
 const fs = require('fs-extra');
-const path = require('path');
 
-const extPackage = require('./getExtPackage');
-const extPath = require('./getExtPath');
+const packageJson = require('./packageJson');
+const paths = require('./paths');
 
-const dependencies = extPackage.dependencies || {};
-const tsconfigPath = path.join(extPath, 'tsconfig.json');
-const tsconfigExists = fs.existsSync(tsconfigPath);
+const tsconfigExists = fs.existsSync(paths.extTsconfigJson);
 
-if (dependencies.typescript && !tsconfigExists) {
+if (packageJson.dependencies.typescript && !tsconfigExists) {
   console.log('Setting up tsconfig.json');
 
   const tsconfig = {
@@ -23,5 +20,5 @@ if (dependencies.typescript && !tsconfigExists) {
     },
   };
 
-  fs.outputJsonSync(tsconfigPath, tsconfig, { spaces: 2 });
+  fs.outputJsonSync(paths.extTsconfigJson, tsconfig, { spaces: 2 });
 }

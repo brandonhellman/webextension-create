@@ -1,18 +1,26 @@
 const fs = require('fs-extra');
-const path = require('path');
 
-const extPackage = require('../utils/getExtPackage');
-const extPath = require('../utils/getExtPath');
-const templatePath = require('../utils/getTemplatePath');
+const package = require('../utils/packageJson');
+const paths = require('../utils/paths');
 
 require('../utils/tsconfigSetup');
 
-extPackage.scripts = {
+package.scripts = {
   start: 'webextension-scripts start',
   build: 'webextension-scripts build',
 };
 
-fs.outputJsonSync(path.join(extPath, 'package.json'), extPackage, { spaces: 2 });
-fs.copySync(templatePath, extPath);
-fs.copySync(path.join(__dirname, '..', 'templates', '.gitignore'), path.join(extPath, '.gitignore'));
-fs.copySync(path.join(__dirname, '..', 'templates', 'README.md'), path.join(extPath, 'README.md'));
+fs.outputJsonSync(paths.extPackageJson, package, { spaces: 2 });
+
+fs.copySync(paths.templatesGitignore, paths.extGitignore);
+fs.copySync(paths.templatesReadme, paths.extReadme);
+
+if (package.dependencies.react && package.dependencies.typescript) {
+  fs.copySync(paths.templatesReactTypescript, paths.extRoot);
+} else if (package.dependencies.react) {
+  fs.copySync(paths.templatesReact, paths.extRoot);
+} else if (package.dependencies.typescript) {
+  fs.copySync(paths.templatesTypescript, paths.extRoot);
+} else {
+  fs.copySync(paths.templatesJs, paths.extRoot);
+}

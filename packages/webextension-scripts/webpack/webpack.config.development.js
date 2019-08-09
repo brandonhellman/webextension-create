@@ -1,13 +1,10 @@
-const path = require('path');
-
+const paths = require('../utils/paths');
 const content_scripts = require('./webpack.entry.content_scripts');
 const pages = require('./webpack.entry.pages');
 const html = require('./webpack.plugin.html');
 const manifest = require('./webpack.plugin.manifest');
 const public = require('./webpack.plugin.public');
 const reloader = require('./webpack.plugin.reloader');
-
-const extPath = require('../utils/getExtPath');
 
 module.exports = {
   entry: {
@@ -16,7 +13,7 @@ module.exports = {
   },
 
   output: {
-    path: extPath + '/build/unpacked',
+    path: paths.extUnpacked,
   },
 
   mode: 'development',
@@ -32,7 +29,7 @@ module.exports = {
       {
         test: /\.(js|jsx|ts|tsx|mjs)$/,
         exclude: /node_modules/,
-        include: path.join(extPath, 'src'),
+        include: paths.extSrc,
         use: {
           loader: require.resolve('babel-loader'),
           options: {

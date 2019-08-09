@@ -2,8 +2,8 @@ const fs = require('fs-extra');
 const path = require('path');
 const ExtensionReloader = require('webpack-extension-reloader');
 
-const extPath = require('../utils/getExtPath');
-const extManifest = fs.readJsonSync(path.join(extPath, 'src', 'manifest.json'));
+const paths = require('../utils/paths');
+const extManifest = fs.readJsonSync(path.join(paths.extSrc, 'manifest.json'));
 
 const content_scripts = extManifest.content_scripts
   ? extManifest.content_scripts.reduce((acc, script) => {
