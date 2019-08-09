@@ -29,4 +29,4 @@ Compiles the extension and packages them into production ready zips at `./build/
 
 ---
 
-Documentation: https://github.com/kadauchi/webextension-create#webextension-create
+Additional documentation: https://github.com/kadauchi/webextension-create#webextension-create
