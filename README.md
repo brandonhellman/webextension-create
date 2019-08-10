@@ -44,13 +44,6 @@ project-directory
 
 ## Available Scripts
 
-⚠️⚠️⚠️ Temporary ⚠️⚠️⚠️
-
-- All [content scripts](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Content_scripts) must be located in `./src/content_scripts`.
-- All [extension pages](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/user_interface/Extension_pages) must be located in `./src/pages`.
-
-⚠️⚠️⚠️ Temporary ⚠️⚠️⚠️
-
 In the project directory, you can run:
 
 ### `npm run start`
