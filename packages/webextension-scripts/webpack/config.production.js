@@ -39,7 +39,7 @@ module.exports = {
         use: [require.resolve('style-loader'), require.resolve('css-loader')],
       },
       {
-        test: /\.(gif|jpe?g|mp4|png)$/,
+        test: /\.(gif|jpe?g|mp4|png|wav)$/,
         use: [require.resolve('file-loader')],
       },
     ],
