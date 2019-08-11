@@ -19,6 +19,7 @@ const dependencies = package.dependencies || {};
 
 if (dependencies.react && dependencies.typescript) {
   fs.copySync(paths.templatesReactTypescript, paths.extRoot);
+  fs.copySync(paths.templatesEnvTypes, paths.extEnvTypes);
 } else if (dependencies.react) {
   fs.copySync(paths.templatesReact, paths.extRoot);
 } else if (dependencies.typescript) {
