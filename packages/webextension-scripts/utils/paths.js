@@ -9,7 +9,7 @@ function resolveExt(relativePath) {
 }
 
 function resolveScripts(relativePath) {
-  return path.resolve(scriptsDirectory, 'templates', relativePath);
+  return path.resolve(scriptsDirectory, relativePath);
 }
 
 function resolveTemplates(relativePath) {
@@ -24,6 +24,7 @@ module.exports = {
   extSrc: resolveExt('src'),
   extManifestJs: resolveExt('src/manifest.js'),
   extManifestJson: resolveExt('src/manifest.json'),
+  extEnvTypes: resolveExt('src/webextension-env.d.ts'),
   extPackageJson: resolveExt('package.json'),
   extTsconfigJson: resolveExt('tsconfig.json'),
   extGitignore: resolveExt('.gitignore'),
@@ -36,4 +37,5 @@ module.exports = {
   templatesTypescript: resolveTemplates('typescript'),
   templatesGitignore: resolveTemplates('.gitignore'),
   templatesReadme: resolveTemplates('README.md'),
+  templatesEnvTypes: resolveTemplates('webextension-env.d.ts'),
 };
