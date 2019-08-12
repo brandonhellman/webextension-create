@@ -7,18 +7,18 @@ const path = require('path');
 const spawn = require('cross-spawn');
 const validate = require('validate-npm-package-name');
 
-const package = fs.readJsonSync(path.join(__dirname, 'package.json'));
+const packageJson = fs.readJsonSync(path.join(__dirname, 'package.json'));
 
 let extName;
 
-const program = new commander.Command(package.name)
-  .version(package.version)
+const program = new commander.Command(packageJson.name)
+  .version(packageJson.version)
   .arguments('<project-directory>')
   .usage(`${chalk.green('<project-directory>')} [options]`)
   .option('-r, --react', 'Use React in your extension.')
   .option('-t, --typescript', 'Use Typescript in your extension.')
   .option('--dev')
-  .action((dir) => {
+  .action((dir: string) => {
     extName = dir;
   })
   .parse(process.argv);
@@ -50,9 +50,12 @@ if (pathExists) {
   process.exit(1);
 }
 
-createBrowserExtension(extName, program.react, program.typescript, program.dev);
+if (extName) {
+  createBrowserExtension(extName, program.react, program.typescript, program.dev);
+}
 
-function createBrowserExtension(extName, useReact, useTypescript, isDev) {
+
+function createBrowserExtension(extName: string, useReact: boolean, useTypescript: boolean, isDev: boolean) {
   const projectRoot = path.resolve(extName);
 
   fs.ensureDirSync(extName);
@@ -65,7 +68,7 @@ function createBrowserExtension(extName, useReact, useTypescript, isDev) {
   console.log(`Done creating ${chalk.green(extName)}.`);
 }
 
-function createPackageJson(projectRoot, extName) {
+function createPackageJson(projectRoot: string, extName: string) {
   console.log(`Creating a new browser extension in ${chalk.green(projectRoot)}.`);
   console.log();
 
@@ -77,7 +80,7 @@ function createPackageJson(projectRoot, extName) {
   fs.outputJsonSync(path.join(projectRoot, 'package.json'), packageJson, { spaces: 2 });
 }
 
-function installDependencies(projectRoot, useReact, useTypescript, isDev) {
+function installDependencies(projectRoot: string, useReact: boolean, useTypescript: boolean, isDev: boolean) {
   const dependencies = isDev ? [] : ['webextension-scripts'];
 
   if (useReact) {
