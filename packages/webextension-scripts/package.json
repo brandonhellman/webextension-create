@@ -3,8 +3,24 @@
   "version": "0.3.3",
   "description": "Configuration and scripts for WebExtension Create.",
   "license": "ISC",
+  "files": [
+    "bin/**/*",
+    "templates/**/*"
+  ],
+  "main": "bin/index.js",
+  "types": "bin/index.d.ts",
   "bin": {
-    "webextension-scripts": "./index.js"
+    "webextension-scripts": "bin/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Kadauchi/webextension-create.git",
+    "directory": "packages/webextension-scripts"
+  },
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "prepare": "npm run build"
   },
   "dependencies": {
     "@babel/core": "^7.5.5",
