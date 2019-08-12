@@ -7,7 +7,7 @@ const path = require('path');
 const spawn = require('cross-spawn');
 const validate = require('validate-npm-package-name');
 
-const packageJson = fs.readJsonSync(path.join(__dirname, 'package.json'));
+const packageJson = fs.readJsonSync(path.join(__dirname, '..', 'package.json'));
 
 let extName;
 
@@ -53,7 +53,6 @@ if (pathExists) {
 if (extName) {
   createBrowserExtension(extName, program.react, program.typescript, program.dev);
 }
-
 
 function createBrowserExtension(extName: string, useReact: boolean, useTypescript: boolean, isDev: boolean) {
   const projectRoot = path.resolve(extName);
