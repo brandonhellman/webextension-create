@@ -3,8 +3,19 @@
   "version": "0.2.0",
   "description": "Create web extensions with no build configuration.",
   "license": "ISC",
+  "files": ["bin/**/*"],
+  "main": "bin/index.js",
+  "types": "bin/index.d.ts",
   "bin": {
-    "webextension-create": "./index.js"
+    "webextension-create": "bin/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Kadauchi/webextension-create.git",
+    "directory": "packages/webextension-create"
+  },
+  "scripts": {
+    "build": "tsc"
   },
   "dependencies": {
     "chalk": "^2.4.2",
