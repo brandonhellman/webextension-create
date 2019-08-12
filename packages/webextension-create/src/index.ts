@@ -7,7 +7,7 @@ import path from 'path';
 import spawn from 'cross-spawn';
 import validate from 'validate-npm-package-name';
 
-import packageJson from '../package.json';
+const packageJson = fs.readJSONSync(path.resolve(__dirname, 'package.json'));
 
 let extName = '';
 
