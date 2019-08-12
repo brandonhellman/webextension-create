@@ -3,7 +3,9 @@
   "version": "0.2.0",
   "description": "Create web extensions with no build configuration.",
   "license": "ISC",
-  "files": ["bin/**/*"],
+  "files": [
+    "bin/**/*"
+  ],
   "main": "bin/index.js",
   "types": "bin/index.d.ts",
   "bin": {
