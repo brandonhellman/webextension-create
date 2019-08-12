@@ -31,5 +31,8 @@
     "webpack": "^4.39.1",
     "webpack-extension-reloader": "^1.1.0",
     "webpack-format-messages": "^2.0.5"
+  },
+  "devDependencies": {
+    "typescript": "^3.5.3"
   }
 }
