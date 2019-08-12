@@ -29,6 +29,8 @@
     "validate-npm-package-name": "^3.0.0"
   },
   "devDependencies": {
+    "@types/cross-spawn": "^6.0.0",
+    "@types/fs-extra": "^8.0.0",
     "typescript": "^3.5.3"
   }
 }
