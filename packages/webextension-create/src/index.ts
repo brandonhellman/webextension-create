@@ -9,7 +9,7 @@ import validate from 'validate-npm-package-name';
 
 import packageJson from '../package.json';
 
-let extName;
+let extName = '';
 
 const program = new commander.Command(packageJson.name)
   .version(packageJson.version)
