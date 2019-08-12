@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
-const chalk = require('chalk');
-const commander = require('commander');
-const fs = require('fs-extra');
-const path = require('path');
-const spawn = require('cross-spawn');
-const validate = require('validate-npm-package-name');
+import chalk from 'chalk';
+import commander from 'commander';
+import fs from 'fs-extra';
+import path from 'path';
+import spawn from 'cross-spawn';
+import validate from 'validate-npm-package-name';
 
-const packageJson = fs.readJsonSync(path.join(__dirname, '..', 'package.json'));
+import packageJson from '../package.json';
 
 let extName;
 
