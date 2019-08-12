@@ -28,7 +28,7 @@ if (!extName) {
   console.log(`  ${chalk.cyan(program.name())} ${chalk.green('<project-directory>')}`);
   console.log();
   console.log('For example:');
-  console.log(`  ${chalk.cyan(program.name())} ${chalk.green('my-browser-ext')}`);
+  console.log(`  ${chalk.cyan(program.name())} ${chalk.green('my-web-ext')}`);
   console.log();
   console.log(`Run ${chalk.cyan(`${program.name()} --help`)} to see all options.`);
   process.exit(1);
