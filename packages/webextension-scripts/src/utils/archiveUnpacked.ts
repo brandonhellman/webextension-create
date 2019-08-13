@@ -1,8 +1,8 @@
-const archiver = require('archiver');
-const fs = require('fs-extra');
+import archiver from 'archiver';
+import fs from 'fs-extra';
 
-const packageJson = require('./packageJson');
-const paths = require('./paths');
+import packageJson from './packageJson';
+import paths from './paths';
 
 ['chrome', 'firefox'].forEach((target) => {
   const zipName = `${target}-${packageJson.version}`;

@@ -1,22 +1,22 @@
-const path = require('path');
-const fs = require('fs-extra');
+import path from 'path';
+import fs from 'fs-extra';
 
 const extDirectory = fs.realpathSync(process.cwd());
-const scriptsDirectory = path.dirname(require.main.filename);
+const scriptsDirectory = path.join(__dirname, '..', 'scripts');
 
-function resolveExt(relativePath) {
+function resolveExt(relativePath: string) {
   return path.resolve(extDirectory, relativePath);
 }
 
-function resolveScripts(relativePath) {
+function resolveScripts(relativePath: string) {
   return path.resolve(scriptsDirectory, relativePath);
 }
 
-function resolveTemplates(relativePath) {
+function resolveTemplates(relativePath: string) {
   return path.resolve(scriptsDirectory, 'templates', relativePath);
 }
 
-module.exports = {
+export default {
   extRoot: resolveExt('.'),
   extBuild: resolveExt('build'),
   extUnpacked: resolveExt('build/unpacked'),

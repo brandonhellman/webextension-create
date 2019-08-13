@@ -1,3 +1,5 @@
+declare module 'webpack-extension-reloader/dist/webpack-extension-reloader';
+
 declare module '*.gif' {
   const src: string;
   export default src;

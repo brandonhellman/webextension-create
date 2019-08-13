@@ -1,21 +1,34 @@
-const flatten = require('flat');
-const fs = require('fs-extra');
-const glob = require('glob');
-const { JSDOM } = require('jsdom');
-const path = require('path');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ExtensionReloader = require('webpack-extension-reloader');
-const GenerateJsonPlugin = require('generate-json-webpack-plugin');
+import flatten from 'flat';
+import fs from 'fs-extra';
+import glob from 'glob';
+import { JSDOM } from 'jsdom';
+import path from 'path';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import GenerateJsonPlugin from 'generate-json-webpack-plugin';
+import ExtensionReloader from 'webpack-extension-reloader/dist/webpack-extension-reloader';
 
 const packageJson = require('../utils/packageJson');
 const paths = require('../utils/paths');
 
+interface ReloaderEntries {
+  contentScript: string[];
+  background: string;
+}
+
+interface WebpackEntries {
+  [key: string]: any;
+}
+
+interface WebpackPlugins {
+  [key: string]: any;
+}
+
 const manifestJsExists = fs.pathExistsSync(paths.extManifestJs);
 const manifestJsonExists = fs.pathExistsSync(paths.extManifestJson);
 
-const reloaderEntries = { contentScript: [], background: undefined };
-const webpackEntries = {};
-const webpackPlugins = [];
+const reloaderEntries: ReloaderEntries = { contentScript: [], background: '' };
+const webpackEntries: WebpackEntries = {};
+const webpackPlugins: WebpackPlugins = [];
 
 let manifest;
 let polyfill;
@@ -59,7 +72,7 @@ Object.values(flatten(manifest)).forEach((value) => {
 });
 
 if (manifest.background && manifest.background.scripts) {
-  manifest.background.scripts.forEach((script) => {
+  manifest.background.scripts.forEach((script: string) => {
     if (script === 'browser-polyfill.js') {
       polyfill = true;
       return;
@@ -73,9 +86,9 @@ if (manifest.background && manifest.background.scripts) {
 }
 
 if (manifest.content_scripts) {
-  const scripts = manifest.content_scripts.reduce((acc, { js }) => [...acc, ...js], []);
+  const scripts = manifest.content_scripts.reduce((acc: string[], { js }: { js: string[] }) => [...acc, ...js], []);
 
-  scripts.forEach((script) => {
+  scripts.forEach((script: string) => {
     if (script === 'browser-polyfill.js') {
       polyfill = true;
       return;
@@ -146,7 +159,7 @@ glob.sync('**/*.html', { cwd: paths.extSrc }).forEach((htmlFile) => {
   );
 });
 
-module.exports = {
+export default {
   entry: webpackEntries,
   plugins: webpackPlugins,
   reloader: new ExtensionReloader({
