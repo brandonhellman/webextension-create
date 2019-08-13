@@ -1,7 +1,7 @@
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
-const paths = require('../utils/paths');
-const webextension = require('./webextension');
+import * as paths from '../utils/paths';
+import * as webextension from './webextension';
 
 const config = {
   entry: webextension.entry,
