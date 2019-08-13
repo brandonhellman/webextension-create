@@ -1,6 +1,6 @@
 import fs from 'fs-extra';
 
-import paths from './paths';
+import * as paths from './paths';
 
 const packageJson = fs.readJsonSync(paths.extPackageJson);
 
