@@ -2,8 +2,6 @@ import webpack from 'webpack';
 
 import { production } from '../webpack/config';
 
-require('../utils/tsconfigSetup');
-
 // @ts-ignore
 webpack(production).run((err: Error, stats: webpack.Stats) => {
   if (err) {

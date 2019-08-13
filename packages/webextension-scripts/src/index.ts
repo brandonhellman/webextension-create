@@ -7,6 +7,7 @@ switch (script) {
   case 'start':
   case 'build':
   case 'init':
+    require('./utils/tsconfigSetup');
     require(`./scripts/${script}`);
     break;
   default:

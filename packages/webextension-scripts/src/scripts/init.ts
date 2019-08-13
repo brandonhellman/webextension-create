@@ -3,8 +3,6 @@ import fs from 'fs-extra';
 import { packageJson } from '../utils/packageJson';
 import * as paths from '../utils/paths';
 
-require('../utils/tsconfigSetup');
-
 packageJson.scripts = {
   start: 'webextension-scripts start',
   build: 'webextension-scripts build',

@@ -2,8 +2,6 @@ import webpack from 'webpack';
 
 import { development } from '../webpack/config';
 
-require('../utils/tsconfigSetup');
-
 // @ts-ignore
 webpack(development).watch({ aggregateTimeout: 300, poll: 1000 }, (err: Error, stats: webpack.Stats) => {
   if (err) {
