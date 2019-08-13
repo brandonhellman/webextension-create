@@ -2,40 +2,39 @@ import path from 'path';
 import fs from 'fs-extra';
 
 const extDirectory = fs.realpathSync(process.cwd());
-const scriptsDirectory = path.join(__dirname, '..', 'scripts');
+const pkgDirectory = path.join(__dirname, '..', '..');
+// const scriptsDirectory = path.join(__dirname, '..', 'scripts');
 
 function resolveExt(relativePath: string) {
   return path.resolve(extDirectory, relativePath);
 }
 
 function resolveScripts(relativePath: string) {
-  return path.resolve(scriptsDirectory, relativePath);
+  return path.resolve(pkgDirectory, 'scripts', relativePath);
 }
 
 function resolveTemplates(relativePath: string) {
-  return path.resolve(scriptsDirectory, 'templates', relativePath);
+  return path.resolve(pkgDirectory, 'templates', relativePath);
 }
 
-export default {
-  extRoot: resolveExt('.'),
-  extBuild: resolveExt('build'),
-  extUnpacked: resolveExt('build/unpacked'),
-  extPublic: resolveExt('public'),
-  extSrc: resolveExt('src'),
-  extManifestJs: resolveExt('src/manifest.js'),
-  extManifestJson: resolveExt('src/manifest.json'),
-  extEnvTypes: resolveExt('src/webextension-env.d.ts'),
-  extPackageJson: resolveExt('package.json'),
-  extTsconfigJson: resolveExt('tsconfig.json'),
-  extGitignore: resolveExt('.gitignore'),
-  extReadme: resolveExt('README.md'),
-  scriptsNodeModules: resolveScripts('node_modules'),
-  templatesRoot: resolveTemplates('.'),
-  templatesJs: resolveTemplates('js'),
-  templatesReact: resolveTemplates('react'),
-  templatesReactTypescript: resolveTemplates('react-typescript'),
-  templatesTypescript: resolveTemplates('typescript'),
-  templatesGitignore: resolveTemplates('.gitignore'),
-  templatesReadme: resolveTemplates('README.md'),
-  templatesEnvTypes: resolveTemplates('webextension-env.d.ts'),
-};
+export const extRoot = resolveExt('.');
+export const extBuild = resolveExt('build');
+export const extUnpacked = resolveExt('build/unpacked');
+export const extPublic = resolveExt('public');
+export const extSrc = resolveExt('src');
+export const extManifestJs = resolveExt('src/manifest.js');
+export const extManifestJson = resolveExt('src/manifest.json');
+export const extEnvTypes = resolveExt('src/webextension-env.d.ts');
+export const extPackageJson = resolveExt('package.json');
+export const extTsconfigJson = resolveExt('tsconfig.json');
+export const extGitignore = resolveExt('.gitignore');
+export const extReadme = resolveExt('README.md');
+export const scriptsNodeModules = resolveScripts('node_modules');
+export const templatesRoot = resolveTemplates('.');
+export const templatesJs = resolveTemplates('js');
+export const templatesReact = resolveTemplates('react');
+export const templatesReactTypescript = resolveTemplates('react-typescript');
+export const templatesTypescript = resolveTemplates('typescript');
+export const templatesGitignore = resolveTemplates('.gitignore');
+export const templatesReadme = resolveTemplates('README.md');
+export const templatesEnvTypes = resolveTemplates('webextension-env.d.ts');
