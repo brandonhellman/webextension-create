@@ -1,7 +1,7 @@
-const fs = require('fs-extra');
+import fs from 'fs-extra';
 
-const packageJson = require('../utils/packageJson');
-const paths = require('../utils/paths');
+import { packageJson } from '../utils/packageJson';
+import * as paths from '../utils/paths';
 
 require('../utils/tsconfigSetup');
 

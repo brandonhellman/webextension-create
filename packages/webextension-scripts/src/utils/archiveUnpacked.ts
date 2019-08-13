@@ -1,7 +1,7 @@
 import archiver from 'archiver';
 import fs from 'fs-extra';
 
-import packageJson from './packageJson';
+import { packageJson } from './packageJson';
 import * as paths from './paths';
 
 ['chrome', 'firefox'].forEach((target) => {

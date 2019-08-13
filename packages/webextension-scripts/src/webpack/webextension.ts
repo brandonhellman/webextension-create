@@ -7,8 +7,8 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 import GenerateJsonPlugin from 'generate-json-webpack-plugin';
 import ExtensionReloader from 'webpack-extension-reloader/dist/webpack-extension-reloader';
 
-const packageJson = require('../utils/packageJson');
-const paths = require('../utils/paths');
+import { packageJson } from '../utils/packageJson';
+import * as paths from '../utils/paths';
 
 interface ReloaderEntries {
   contentScript: string[];
