@@ -2,7 +2,7 @@ import archiver from 'archiver';
 import fs from 'fs-extra';
 
 import packageJson from './packageJson';
-import paths from './paths';
+import * as paths from './paths';
 
 ['chrome', 'firefox'].forEach((target) => {
   const zipName = `${target}-${packageJson.version}`;
