@@ -19,7 +19,7 @@
   },
   "scripts": {
     "build": "tsc && node build.js",
-    "build:watch": "tsc --watch",
+    "watch": "tsc --watch",
     "prepare": "npm run build"
   },
   "dependencies": {
