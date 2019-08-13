@@ -1,16 +1,14 @@
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+
 const paths = require('../utils/paths');
 const webextension = require('./webextension');
 
-module.exports = {
+const config = {
   entry: webextension.entry,
 
   output: {
     path: paths.extUnpacked,
   },
-
-  mode: 'development',
-
-  devtool: 'source-map',
 
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.css'],
@@ -49,6 +47,17 @@ module.exports = {
       },
     ],
   },
+};
 
+export const development = {
+  ...config,
+  mode: 'development',
+  devtool: 'source-map',
   plugins: [...webextension.plugins, webextension.reloader],
+};
+
+export const production = {
+  ...config,
+  mode: 'production',
+  plugins: [new CleanWebpackPlugin(), ...webextension.plugins],
 };

@@ -1,7 +1,7 @@
-const fs = require('fs-extra');
+import fs from 'fs-extra';
 
-const packageJson = require('./packageJson');
-const paths = require('./paths');
+import packageJson from './packageJson';
+import paths from './paths';
 
 const tsconfigExists = fs.existsSync(paths.extTsconfigJson);
 
@@ -11,12 +11,12 @@ if (packageJson.dependencies && packageJson.dependencies.typescript && !tsconfig
   const tsconfig = {
     compilerOptions: {
       esModuleInterop: true,
-      sourceMap: true,
+      inlineSourceMap: true,
       noImplicitAny: true,
       module: 'commonjs',
       target: 'es6',
       jsx: 'react',
-      lib: ['es2017', 'dom'],
+      lib: ['es2018', 'dom'],
     },
   };
 
