@@ -18,7 +18,7 @@
     "directory": "packages/webextension-scripts"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && node build.js",
     "build:watch": "tsc --watch",
     "prepare": "npm run build"
   },
