@@ -1,6 +1,6 @@
 import fs from 'fs-extra';
 
-import packageJson from './packageJson';
+import { packageJson } from './packageJson';
 import * as paths from './paths';
 
 const tsconfigExists = fs.existsSync(paths.extTsconfigJson);
