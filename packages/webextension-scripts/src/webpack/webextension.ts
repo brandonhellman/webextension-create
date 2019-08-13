@@ -15,11 +15,11 @@ interface ReloaderEntries {
   background: string;
 }
 
-interface WebpackEntries {
+export interface WebpackEntries {
   [key: string]: any;
 }
 
-interface WebpackPlugins {
+export interface WebpackPlugins {
   [key: string]: any;
 }
 
@@ -28,7 +28,7 @@ const manifestJsonExists = fs.pathExistsSync(paths.extManifestJson);
 
 const reloaderEntries: ReloaderEntries = { contentScript: [], background: '' };
 const webpackEntries: WebpackEntries = {};
-const webpackPlugins: WebpackPlugins = [];
+const webpackPlugins: WebpackPlugins[] = [];
 
 let manifest;
 let polyfill;
@@ -159,10 +159,8 @@ glob.sync('**/*.html', { cwd: paths.extSrc }).forEach((htmlFile) => {
   );
 });
 
-export default {
-  entry: webpackEntries,
-  plugins: webpackPlugins,
-  reloader: new ExtensionReloader({
-    entries: reloaderEntries,
-  }),
-};
+export const entry = webpackEntries;
+export const plugins = webpackPlugins;
+export const reloader = new ExtensionReloader({
+  entries: reloaderEntries,
+});
