@@ -11,8 +11,9 @@ import { packageJson } from '../utils/packageJson';
 import * as paths from '../utils/paths';
 
 interface ReloaderEntries {
-  contentScript: string[];
   background: string;
+  contentScript: string[];
+  extensionPage: string[];
 }
 
 export interface WebpackEntries {
@@ -26,7 +27,7 @@ export interface WebpackPlugins {
 const manifestJsExists = fs.pathExistsSync(paths.extManifestJs);
 const manifestJsonExists = fs.pathExistsSync(paths.extManifestJson);
 
-const reloaderEntries: ReloaderEntries = { contentScript: [], background: '' };
+const reloaderEntries: ReloaderEntries = { background: '', contentScript: [], extensionPage: [] };
 const webpackEntries: WebpackEntries = {};
 const webpackPlugins: WebpackPlugins[] = [];
 
@@ -128,6 +129,7 @@ glob.sync('**/*.html', { cwd: paths.extSrc }).forEach((htmlFile) => {
       const { ext } = path.parse(relative);
       const name = relative.replace(ext, '');
       webpackEntries[name] = scriptPath;
+      reloaderEntries.extensionPage.push(name);
     }
   });
 
