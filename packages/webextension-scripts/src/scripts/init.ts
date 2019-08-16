@@ -16,12 +16,12 @@ fs.copySync(paths.templatesReadme, paths.extReadme);
 const dependencies = packageJson.dependencies || {};
 
 if (dependencies.react && dependencies.typescript) {
-  fs.copySync(paths.templatesReactTypescript, paths.extRoot);
+  fs.copySync(paths.templatesReactTypescript, paths.extSrc);
   fs.copySync(paths.templatesEnvTypes, paths.extEnvTypes);
 } else if (dependencies.react) {
-  fs.copySync(paths.templatesReact, paths.extRoot);
+  fs.copySync(paths.templatesReact, paths.extSrc);
 } else if (dependencies.typescript) {
-  fs.copySync(paths.templatesTypescript, paths.extRoot);
+  fs.copySync(paths.templatesTypescript, paths.extSrc);
 } else {
-  fs.copySync(paths.templatesJs, paths.extRoot);
+  fs.copySync(paths.templatesJs, paths.extSrc);
 }
