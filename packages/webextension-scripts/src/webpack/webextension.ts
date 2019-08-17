@@ -7,7 +7,7 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 import GenerateJsonPlugin from 'generate-json-webpack-plugin';
 import ExtensionReloader from 'webpack-extension-reloader/dist/webpack-extension-reloader';
 
-import { packageJson } from '../utils/packageJson';
+import { extPackageJson } from '../utils/extPackageJson';
 import * as paths from '../utils/paths';
 
 interface ReloaderEntries {
@@ -46,8 +46,8 @@ if (!manifest) {
   throw new Error('No manifest found!');
 } else {
   const replaced = JSON.stringify(manifest)
-    .replace(/__package\.name__/g, packageJson.name)
-    .replace(/__package\.version__/g, packageJson.version)
+    .replace(/__package\.name__/g, extPackageJson.name)
+    .replace(/__package\.version__/g, extPackageJson.version)
     .replace(/\.jsx"/g, '.js"')
     .replace(/\.tsx"/g, '.js"')
     .replace(/\.ts"/g, '.js"');

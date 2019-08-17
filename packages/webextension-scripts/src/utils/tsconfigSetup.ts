@@ -1,11 +1,11 @@
 import fs from 'fs-extra';
 
-import { packageJson } from './packageJson';
+import { extPackageJson } from './extPackageJson';
 import * as paths from './paths';
 
 const tsconfigExists = fs.existsSync(paths.extTsconfigJson);
 
-if (packageJson.dependencies && packageJson.dependencies.typescript && !tsconfigExists) {
+if (extPackageJson.dependencies && extPackageJson.dependencies.typescript && !tsconfigExists) {
   console.log('Setting up tsconfig.json');
 
   const tsconfig = {

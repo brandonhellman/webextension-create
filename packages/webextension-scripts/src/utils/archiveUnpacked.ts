@@ -1,11 +1,11 @@
 import archiver from 'archiver';
 import fs from 'fs-extra';
 
-import { packageJson } from './packageJson';
+import { extPackageJson } from './extPackageJson';
 import * as paths from './paths';
 
 ['chrome', 'firefox'].forEach((target) => {
-  const zipName = `${target}-${packageJson.version}`;
+  const zipName = `${target}-${extPackageJson.version}`;
   const zipPath = `build/${zipName}.zip`;
 
   fs.removeSync(zipPath);
@@ -56,7 +56,7 @@ import * as paths from './paths';
   archive.finalize();
 });
 
-const sourceZipName = `source-${packageJson.version}`;
+const sourceZipName = `source-${extPackageJson.version}`;
 const sourceZipPath = `build/${sourceZipName}.zip`;
 
 fs.removeSync(sourceZipPath);
