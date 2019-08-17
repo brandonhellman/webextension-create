@@ -2,24 +2,26 @@ import webpack from 'webpack';
 
 import { development } from '../webpack/config';
 
-// @ts-ignore
-webpack(development).watch({ aggregateTimeout: 300, poll: 1000 }, (err: Error, stats: webpack.Stats) => {
-  if (err) {
-    console.error(err);
-    return;
-  }
+export default function start(browser: string | undefined) {
+  // @ts-ignore
+  webpack(development).watch({ aggregateTimeout: 300, poll: 1000 }, (err: Error, stats: webpack.Stats) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
 
-  const info = stats.toJson();
+    const info = stats.toJson();
 
-  if (stats.hasErrors()) {
-    console.log('Failed to compile.');
-    console.error(info.errors);
-    return;
-  }
+    if (stats.hasErrors()) {
+      console.log('Failed to compile.');
+      console.error(info.errors);
+      return;
+    }
 
-  if (stats.hasWarnings()) {
-    console.warn(info.warnings);
-  }
+    if (stats.hasWarnings()) {
+      console.warn(info.warnings);
+    }
 
-  console.log(`Compiled in ${stats.endTime && stats.startTime ? stats.endTime - stats.startTime : '?'}ms!`);
-});
+    console.log(`Compiled in ${stats.endTime && stats.startTime ? stats.endTime - stats.startTime : '?'}ms!`);
+  });
+}
