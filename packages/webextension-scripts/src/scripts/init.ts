@@ -116,23 +116,35 @@ function typescriptInstaller() {
   }
 }
 
-export default function init(template: 'js' | 'react' | 'reactTypescript' | 'typescript' | undefined) {
+export function init(template: string | undefined) {
   if (template) {
-    if (copy[template]) {
-      if (!extHasSrc()) {
-        copy[template]();
-        copy.gitignore();
-        copy.readme();
-      } else {
-        console.log();
-        console.error(`ERR! ${ext.pathToSrc} already exists`);
-        return;
-      }
-    } else {
+    if (extHasSrc()) {
       console.log();
-      console.error('ERR! An incorrect template was provided');
+      console.error(`ERR! ${ext.pathToSrc} already exists`);
       return;
     }
+
+    switch (template) {
+      case 'js':
+        copy.js();
+        break;
+      case 'react':
+        copy.react();
+        break;
+      case 'reactTypescript':
+        copy.reactTypescript();
+        break;
+      case 'typescript':
+        copy.typescript();
+        break;
+      default:
+        console.log();
+        console.error('ERR! An incorrect template was provided');
+        return;
+    }
+
+    copy.gitignore();
+    copy.readme();
   } else {
     console.log();
     console.log('No template was provided');

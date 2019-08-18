@@ -19,4 +19,5 @@ export const pathToPackageJson = resolve('package.json');
 export const pathToTsconfigJson = resolve('tsconfig.json');
 export const pathToGitignore = resolve('.gitignore');
 export const pathToReadme = resolve('README.md');
-export const packageJson = fs.readJsonSync(pathToPackageJson);
+export const manifestJson = fs.existsSync(pathToManifestJson) ? fs.readJSONSync(pathToManifestJson) : null;
+export const packageJson = fs.existsSync(pathToPackageJson) ? fs.readJsonSync(pathToPackageJson) : null;

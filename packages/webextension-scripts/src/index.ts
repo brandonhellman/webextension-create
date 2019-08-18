@@ -2,6 +2,10 @@
 
 import program from 'commander';
 
+import { build } from './scripts/build';
+import { init } from './scripts/init';
+import { start } from './scripts/start';
+
 const packageJson = require('../package.json');
 
 let script: string | undefined;
@@ -39,13 +43,13 @@ program.parse(process.argv);
 
 switch (script) {
   case 'build':
-    require('./scripts/build').default();
+    build();
     break;
   case 'init':
-    require('./scripts/init').default(option);
+    init(option);
     break;
   case 'start':
-    require('./scripts/start').default(option);
+    start(option);
     break;
   default:
     program.outputHelp();

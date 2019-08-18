@@ -1,11 +1,12 @@
 import webpack from 'webpack';
 
 import { archiveUnpacked } from '../utils/archiveUnpacked';
-import { tsconfigSetup } from '../utils/tsconfigSetup';
-import { production } from '../webpack/config';
+import { config } from '../webpack/config';
+// import { tsconfigSetup } from '../utils/tsconfigSetup';
 
-export default function build() {
-  tsconfigSetup();
+
+export function build() {
+  const { production } = config();
 
   // @ts-ignore
   webpack(production).run((err: Error, stats: webpack.Stats) => {
@@ -27,8 +28,8 @@ export default function build() {
     }
 
     console.log(`Compiled in ${stats.endTime && stats.startTime ? stats.endTime - stats.startTime : '?'}ms!`);
-    console.log()
-    
+    console.log();
+
     archiveUnpacked();
   });
 }
