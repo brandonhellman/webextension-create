@@ -3,6 +3,7 @@ import spawn from 'cross-spawn';
 
 import * as ext from '../utils/ext';
 import * as pkg from '../utils/pkg';
+import { tsconfigSetup } from '../utils/tsconfigSetup';
 
 const copy = {
   gitignore() {
@@ -120,4 +121,6 @@ export default function init(template: 'js' | 'react' | 'reactTypescript' | 'typ
       console.error(`Incorrect template provided, nothing copied to ${ext.pathToSrc}`);
     }
   }
+
+  tsconfigSetup();
 }

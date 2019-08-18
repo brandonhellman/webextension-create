@@ -1,8 +1,11 @@
 import webpack from 'webpack';
 
+import { tsconfigSetup } from '../utils/tsconfigSetup';
 import { development } from '../webpack/config';
 
 export default function start(browser: string | undefined) {
+  tsconfigSetup();
+
   // @ts-ignore
   webpack(development).watch({ aggregateTimeout: 300, poll: 1000 }, (err: Error, stats: webpack.Stats) => {
     if (err) {

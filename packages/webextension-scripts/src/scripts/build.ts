@@ -1,8 +1,11 @@
 import webpack from 'webpack';
 
+import { tsconfigSetup } from '../utils/tsconfigSetup';
 import { production } from '../webpack/config';
 
 export default function build() {
+  tsconfigSetup();
+
   // @ts-ignore
   webpack(production).run((err: Error, stats: webpack.Stats) => {
     if (err) {
