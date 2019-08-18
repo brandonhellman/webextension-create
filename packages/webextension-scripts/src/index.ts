@@ -5,8 +5,7 @@ import program from 'commander';
 import { build } from './scripts/build';
 import { init } from './scripts/init';
 import { start } from './scripts/start';
-
-const packageJson = require('../package.json');
+import { packageJson } from './utils/pkg';
 
 let script: string | undefined;
 let option: string | undefined;
