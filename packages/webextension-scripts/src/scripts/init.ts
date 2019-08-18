@@ -33,7 +33,9 @@ const copy = {
   },
   reactTypescript() {
     reactInstaller();
+    reactTypesInstaller();
     typescriptInstaller();
+    tsconfigSetup();
     fs.copySync(pkg.pathToReactTypescript, ext.pathToSrc);
     fs.copySync(pkg.pathToEnvTypes, ext.pathToEnvTypes);
 
@@ -42,6 +44,7 @@ const copy = {
   },
   typescript() {
     typescriptInstaller();
+    tsconfigSetup();
     fs.copySync(pkg.pathToTypescript, ext.pathToSrc);
 
     console.log();
@@ -80,6 +83,24 @@ function reactInstaller() {
   }
 }
 
+function reactTypesInstaller() {
+  const dependencies = ext.packageJson.dependencies || {};
+
+  if (!dependencies['@types/react'] || !dependencies['@types/react-dom']) {
+    console.log('Installing @types/react and @types/react-dom');
+    console.log();
+
+    const proc = spawn.sync('npm', ['install', '-S', '@types/react', '@types/react-dom'], {
+      stdio: 'inherit',
+      cwd: ext.pathToRoot,
+    });
+
+    if (proc.status !== 0) {
+      console.error('Failed when installing @types/react and @types/react-dom');
+    }
+  }
+}
+
 function typescriptInstaller() {
   const dependencies = ext.packageJson.dependencies || {};
 
@@ -93,31 +114,15 @@ function typescriptInstaller() {
       console.error('Failed when installing react and react-dom');
     }
   }
-
-  if (dependencies.react || !dependencies['react-dom']) {
-    console.log('Installing @types/react and @types/react-dom');
-    console.log();
-
-    const proc = spawn.sync('npm', ['install', '-S', '@types/react', '@types/react-dom'], {
-      stdio: 'inherit',
-      cwd: ext.pathToRoot,
-    });
-
-    if (proc.status !== 0) {
-      console.error('Failed when installing react and react-dom');
-    }
-  }
-
-  tsconfigSetup();
 }
 
 export default function init(template: 'js' | 'react' | 'reactTypescript' | 'typescript' | undefined) {
   if (template) {
     if (copy[template]) {
       if (!extHasSrc()) {
+        copy[template]();
         copy.gitignore();
         copy.readme();
-        copy[template]();
       } else {
         console.log();
         console.error(`ERR! ${ext.pathToSrc} already exists`);
