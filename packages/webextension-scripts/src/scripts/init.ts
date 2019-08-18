@@ -53,6 +53,18 @@ function extHasSrc() {
   return fs.pathExistsSync(ext.pathToSrc);
 }
 
+function scriptRulesSetup() {
+  ext.packageJson.scripts = {
+    start: 'webextension-scripts start',
+    build: 'webextension-scripts build',
+  };
+
+  fs.outputJsonSync(ext.pathToPackageJson, ext.packageJson, { spaces: 2 });
+
+  console.log();
+  console.log(`Script rules setup in ${ext.pathToPackageJson}`);
+}
+
 function reactInstaller() {
   const dependencies = ext.packageJson.dependencies || {};
 
@@ -95,32 +107,31 @@ function typescriptInstaller() {
       console.error('Failed when installing react and react-dom');
     }
   }
+
+  tsconfigSetup();
 }
 
 export default function init(template: 'js' | 'react' | 'reactTypescript' | 'typescript' | undefined) {
-  ext.packageJson.scripts = {
-    start: 'webextension-scripts start',
-    build: 'webextension-scripts build',
-  };
-
-  fs.outputJsonSync(ext.pathToPackageJson, ext.packageJson, { spaces: 2 });
-
   if (template) {
-    copy.gitignore();
-    copy.readme();
-
     if (copy[template]) {
       if (!extHasSrc()) {
+        copy.gitignore();
+        copy.readme();
         copy[template]();
       } else {
         console.log();
-        console.error(`${ext.pathToSrc} already exists`);
+        console.error(`FAILED! ${ext.pathToSrc} already exists`);
+        return;
       }
     } else {
       console.log();
-      console.error(`Incorrect template provided, nothing copied to ${ext.pathToSrc}`);
+      console.error('FAILED! An incorrect template was provided');
+      return;
     }
+  } else {
+    console.log();
+    console.log('No template was provided');
   }
 
-  tsconfigSetup();
+  scriptRulesSetup();
 }
