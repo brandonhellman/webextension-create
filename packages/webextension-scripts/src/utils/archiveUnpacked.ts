@@ -49,6 +49,7 @@ function archiveCreate(target: 'chrome' | 'firefox' | 'source') {
     // pipe archive data to the file
     archive.pipe(output);
 
+    // choose what files need to be archived
     switch (target) {
       case 'chrome':
         archive.directory(ext.pathToUnpacked, name);
