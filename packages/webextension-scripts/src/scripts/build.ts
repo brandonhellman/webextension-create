@@ -1,5 +1,6 @@
 import webpack from 'webpack';
 
+import { archiveUnpacked } from '../utils/archiveUnpacked';
 import { tsconfigSetup } from '../utils/tsconfigSetup';
 import { production } from '../webpack/config';
 
@@ -26,7 +27,8 @@ export default function build() {
     }
 
     console.log(`Compiled in ${stats.endTime && stats.startTime ? stats.endTime - stats.startTime : '?'}ms!`);
-    require('../utils/archiveUnpacked');
-    console.log('Done packaging for distribution.');
+    console.log()
+    
+    archiveUnpacked();
   });
 }
