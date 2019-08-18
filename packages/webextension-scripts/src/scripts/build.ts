@@ -2,8 +2,6 @@ import webpack from 'webpack';
 
 import { archiveUnpacked } from '../utils/archiveUnpacked';
 import { config } from '../webpack/config';
-// import { tsconfigSetup } from '../utils/tsconfigSetup';
-
 
 export function build() {
   const { production } = config();

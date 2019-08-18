@@ -1,6 +1,5 @@
 import webpack from 'webpack';
 
-//import { tsconfigSetup } from '../utils/tsconfigSetup';
 import { config } from '../webpack/config';
 
 export async function start(browser: string | undefined) {
