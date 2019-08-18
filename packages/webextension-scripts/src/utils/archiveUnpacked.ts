@@ -27,7 +27,6 @@ function archiveCreate(target: 'chrome' | 'firefox' | 'source') {
     // It is not part of this library but rather from the NodeJS Stream API.
     // @see: https://nodejs.org/api/stream.html#stream_event_end
     output.on('end', () => {
-      // console.log('Data has been drained');
       reject(new Error('Data has been drained'));
     });
 
