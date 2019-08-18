@@ -120,12 +120,12 @@ export default function init(template: 'js' | 'react' | 'reactTypescript' | 'typ
         copy[template]();
       } else {
         console.log();
-        console.error(`FAILED! ${ext.pathToSrc} already exists`);
+        console.error(`ERR! ${ext.pathToSrc} already exists`);
         return;
       }
     } else {
       console.log();
-      console.error('FAILED! An incorrect template was provided');
+      console.error('ERR! An incorrect template was provided');
       return;
     }
   } else {
