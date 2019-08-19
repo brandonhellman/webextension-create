@@ -21,3 +21,6 @@ export const pathToGitignore = resolve('.gitignore');
 export const pathToReadme = resolve('README.md');
 export const manifestJson = fs.existsSync(pathToManifestJson) ? fs.readJSONSync(pathToManifestJson) : null;
 export const packageJson = fs.existsSync(pathToPackageJson) ? fs.readJsonSync(pathToPackageJson) : null;
+
+export const getManifestJson = () => (fs.existsSync(pathToManifestJson) ? fs.readJSONSync(pathToManifestJson) : null);
+export const getPackageJson = () => (fs.existsSync(pathToPackageJson) ? fs.readJsonSync(pathToPackageJson) : null);
