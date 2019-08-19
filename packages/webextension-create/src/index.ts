@@ -42,9 +42,9 @@ const questions = [
   {
     type: 'list',
     name: 'template',
-    message: 'Choose which webextension template to use',
-    choices: ['JavaScript', 'TypeScript', 'React', 'ReactTypescript'],
-    default: 'JavaScript',
+    message: 'Choose a webextension template to use',
+    choices: ['javascript', 'react', 'react-typescript', 'typescript'],
+    default: 'javascript',
   },
 ];
 

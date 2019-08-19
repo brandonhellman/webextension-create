@@ -19,11 +19,11 @@ const copy = {
     console.log();
     console.log(`Copied README.md into ${chalk.green(ext.pathToRoot)}`);
   },
-  js() {
-    fs.copySync(pkg.pathToJs, ext.pathToSrc);
+  javascript() {
+    fs.copySync(pkg.pathToJavascript, ext.pathToSrc);
 
     console.log();
-    console.log(`Copied the js template into ${chalk.green(ext.pathToSrc)}`);
+    console.log(`Copied the javascript template into ${chalk.green(ext.pathToSrc)}`);
   },
   react() {
     reactInstaller();
@@ -41,7 +41,7 @@ const copy = {
     fs.copySync(pkg.pathToEnvTypes, ext.pathToEnvTypes);
 
     console.log();
-    console.log(`Copied the reactTypescript template into ${chalk.green(ext.pathToSrc)}`);
+    console.log(`Copied the react-typescript template into ${chalk.green(ext.pathToSrc)}`);
   },
   typescript() {
     typescriptInstaller();
@@ -121,26 +121,26 @@ export function init(template: string | undefined) {
   if (template) {
     if (extHasSrc()) {
       console.log();
-      console.error(`ERR! ${chalk.red(ext.pathToSrc)} already exists`);
+      console.error(`${chalk.red(ext.pathToSrc)} already exists!`);
       return;
     }
 
     switch (template) {
-      case 'JavaScript':
-        copy.js();
+      case 'javascript':
+        copy.javascript();
         break;
-      case 'TypeScript':
-        copy.typescript();
-        break;
-      case 'React':
+      case 'react':
         copy.react();
         break;
-      case 'ReactTypescript':
+      case 'react-typescript':
         copy.reactTypescript();
+        break;
+      case 'typescript':
+        copy.typescript();
         break;
       default:
         console.log();
-        console.error(`ERR! An incorrect template ${chalk.red(template)} was provided`);
+        console.error(`The provided template ${chalk.red(template)} does not exist!`);
         return;
     }
 
@@ -148,7 +148,7 @@ export function init(template: string | undefined) {
     copy.readme();
   } else {
     console.log();
-    console.log('No template was provided');
+    console.log('No template provided');
   }
 
   scriptRulesSetup();
