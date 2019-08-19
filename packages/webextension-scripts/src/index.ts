@@ -31,11 +31,10 @@ program
   });
 
 program
-  .command('start [browser]')
-  .description('start developing the web extension')
-  .action((browser) => {
+  .command('start')
+  .description('start developing the web extension with auto reload')
+  .action(() => {
     script = 'start';
-    option = browser;
   });
 
 program.parse(process.argv);
@@ -48,7 +47,7 @@ switch (script) {
     init(option);
     break;
   case 'start':
-    start(option);
+    start();
     break;
   default:
     program.outputHelp();

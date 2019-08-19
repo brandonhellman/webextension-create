@@ -2,7 +2,7 @@ import webpack from 'webpack';
 
 import { config } from '../webpack/config';
 
-export async function start(browser: string | undefined) {
+export async function start() {
   const { development } = config();
 
   // @ts-ignore
