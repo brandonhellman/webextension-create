@@ -106,7 +106,7 @@ Once the setup if finished you can run
 cd my-webextension
 ```
 
-Now that you are inside the newly create project you can run some built in commands:
+Now that you are inside the newly created project you can run some built in commands:
 
 ### `npm run start`
 
