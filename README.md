@@ -79,7 +79,8 @@ my-webextension
 │   └── webextension-env.d.ts
 ├── .gitignore
 ├── package.json
-└── README.md
+├── README.md
+└── tsconfig.json
 ```
 
 #### template: `typescript`
@@ -97,7 +98,8 @@ my-webextension
 │   └── webextension-env.d.ts
 ├── .gitignore
 ├── package.json
-└── README.md
+├── README.md
+└── tsconfig.json
 ```
 
 Once the setup if finished you can run
