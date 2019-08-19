@@ -16,4 +16,4 @@ npx webextension-create [options]
 
 Options:
 
-- `-e` or `--example` Setup your extension with a webextension-example from MDN.
+- `--dev` Use link instead of install for webextension-scripts.

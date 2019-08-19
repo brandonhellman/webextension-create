@@ -13,7 +13,7 @@ const packageJson = fs.readJSONSync(path.join(__dirname, '..', 'package.json'));
 program
   .name(packageJson.name)
   .version(packageJson.version)
-  .option('-d, --dev', 'Use npm link instead of install for webextension-scripts')
+  .option('--dev', 'Use link instead of install for webextension-scripts')
   .parse(process.argv);
 
 const questions = [
