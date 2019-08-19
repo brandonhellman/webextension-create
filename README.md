@@ -1,56 +1,122 @@
-# webextension-create
+# WebExtension Create
 
 Create web extensions with no build configuration. Inspired by [create-react-app](https://github.com/facebook/create-react-app).
 
-## Creating an Extension
+## Quick Start
 
-To create an extension you can use the following method:
+```sh
+npx webextension-create
+cd my-webextension
+npm start
+```
+
+Then open your browser and load the unpacked folder. Any changes you make will automatically reload your extension.
+
+When you are ready to publish your extension run `npm run build` to create all of the folders you'll need to upload.
+
+You don't need to install or configure tools like Webpack or Babel. Everything is preconfigured and hidden so you can focus on the code.
+
+## Creating a Web Extension
+
+To create a new web extension you can use:
 
 ### npx
 
-Usage:
-
-```
-npx webextension-create <project-directory> [options]
+```sh
+npx webextension-create
 ```
 
-Options:
+This will initiate the CLI asking for a project name and choice of template that will generate one of the following project structures:
 
-- `-r` or `--react` Use React in your extension.
-- `-t` or `--typescript` Use Typescript in your extension.
-
-The initial structure for the project is generated from the options passed to the the CLI and all dependencies installed.
+#### template: `javascript`
 
 ```
-project-directory
+my-webextension
 ├── node_modules
-├── public
-│   ├── icon.png
 ├── src
-│   ├── components (-r)
-│   │   └── App.jsx (-r -t = App.tsx)
-│   ├── content_scripts
-│   │   └── script.js (-t = script.ts)
-│   ├── pages
-│   │   ├── background.js (-t = background.ts)
-│   │   ├── popup.html
-│   │   └── popup.js (-r = popup.jsx) (-t = popup.ts) (-r -t = popup.tsx)
-│   └── manifest.json
+│   ├── background.js
+│   ├── content_script.js
+│   ├── icon.png
+│   ├── manifest.json
+│   ├── popup.html
+│   └── popup.js
+├── .gitignore
 ├── package.json
-└── tsconfig.json (-t)
+└── README.md
 ```
 
-<sub>**(items in parenthesis show file differences based on the options passed)**</sub>
+#### template: `react`
 
-## Available Scripts
+```
+my-webextension
+├── node_modules
+├── src
+│   ├── App.jsx
+│   ├── background.js
+│   ├── content_script.js
+│   ├── icon.png
+│   ├── manifest.json
+│   ├── popup.html
+│   └── popup.jsx
+├── .gitignore
+├── package.json
+└── README.md
+```
 
-In the project directory, you can run:
+#### template: `react-typescript`
+
+```
+my-webextension
+├── node_modules
+├── src
+│   ├── App.tsx
+│   ├── background.ts
+│   ├── content_script.ts
+│   ├── icon.png
+│   ├── manifest.json
+│   ├── popup.html
+│   ├── popup.tsx
+│   └── webextension-env.d.ts
+├── .gitignore
+├── package.json
+├── README.md
+└── tsconfig.json
+```
+
+#### template: `typescript`
+
+```
+my-webextension
+├── node_modules
+├── src
+│   ├── background.ts
+│   ├── content_script.ts
+│   ├── icon.png
+│   ├── manifest.json
+│   ├── popup.html
+│   ├── popup.ts
+│   └── webextension-env.d.ts
+├── .gitignore
+├── package.json
+├── README.md
+└── tsconfig.json
+```
+
+Once the setup if finished you can run
+
+```sh
+cd my-webextension
+```
+
+Now that you are inside the newly created project you can run some built in commands:
 
 ### `npm run start`
 
-Compiles the extension into `./build/unpacked` to be loaded into your broswer for development. The extension automatically reloads when you save changes to the code.
+Compiles the extension into `./build/unpacked` to be that can be loaded into [Chrome](#load-into-chrome) or [Firefox](#load-into-firefox) for development.
 
-##### Load into Chrome
+The extension will automatically reload when you save changes.
+
+#### Load into Chrome
 
 1. Open Chrome
 2. Go to `chrome://extensions`
@@ -58,7 +124,7 @@ Compiles the extension into `./build/unpacked` to be loaded into your broswer fo
 4. Click `Load unpacked`
 5. Select folder `./build/unpacked`
 
-##### Load into Firefox
+#### Load into Firefox
 
 1. Open Firefox
 2. Go to `about:debugging`

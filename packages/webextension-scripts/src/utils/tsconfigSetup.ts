@@ -1,12 +1,19 @@
 import fs from 'fs-extra';
 
-import { packageJson } from './packageJson';
-import * as paths from './paths';
+import * as ext from '../utils/ext';
 
-const tsconfigExists = fs.existsSync(paths.extTsconfigJson);
+export function tsconfigSetup() {
+  const tsconfigExists = fs.existsSync(ext.pathToTsconfigJson);
 
-if (packageJson.dependencies && packageJson.dependencies.typescript && !tsconfigExists) {
-  console.log('Setting up tsconfig.json');
+  if (tsconfigExists) {
+    return;
+  }
+
+  const packageJson = ext.getPackageJson();
+
+  if (!packageJson.dependencies || !packageJson.dependencies.typescript) {
+    return;
+  }
 
   const tsconfig = {
     compilerOptions: {
@@ -20,5 +27,8 @@ if (packageJson.dependencies && packageJson.dependencies.typescript && !tsconfig
     },
   };
 
-  fs.outputJsonSync(paths.extTsconfigJson, tsconfig, { spaces: 2 });
+  fs.outputJsonSync(ext.pathToTsconfigJson, tsconfig, { spaces: 2 });
+
+  console.log();
+  console.log('tsconfig.json setup is complete');
 }

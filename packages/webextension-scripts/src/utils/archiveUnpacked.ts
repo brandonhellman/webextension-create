@@ -1,107 +1,86 @@
 import archiver from 'archiver';
 import fs from 'fs-extra';
 
-import { packageJson } from './packageJson';
-import * as paths from './paths';
+import * as ext from './ext';
 
-['chrome', 'firefox'].forEach((target) => {
-  const zipName = `${target}-${packageJson.version}`;
-  const zipPath = `build/${zipName}.zip`;
+function archiveCreate(target: 'chrome' | 'firefox' | 'source') {
+  return new Promise((resolve, reject) => {
+    const name = `${target}-${ext.packageJson.version}`;
+    const path = `build/${name}.zip`;
 
-  fs.removeSync(zipPath);
+    fs.removeSync(path);
 
-  const output = fs.createWriteStream(zipPath);
-  const archive = archiver('zip', {
-    forceLocalTime: true, // Forces the archive to contain local file times instead of UTC.
-    zlib: { level: 9 }, // Sets the compression level.
-  });
+    const output = fs.createWriteStream(path);
+    const archive = archiver('zip', {
+      forceLocalTime: true, // Forces the archive to contain local file times instead of UTC.
+      zlib: { level: 9 }, // Sets the compression level.
+    });
 
-  // listen for all archive data to be written
-  // 'close' event is fired only when a file descriptor is involved
-  output.on('close', function() {
-    console.log(`${zipPath} created: ${archive.pointer()} total bytes`);
-  });
+    // listen for all archive data to be written
+    // 'close' event is fired only when a file descriptor is involved
+    output.on('close', () => {
+      console.log(`${path} created: ${archive.pointer()} total bytes`);
+      resolve();
+    });
 
-  // This event is fired when the data source is drained no matter what was the data source.
-  // It is not part of this library but rather from the NodeJS Stream API.
-  // @see: https://nodejs.org/api/stream.html#stream_event_end
-  output.on('end', function() {
-    console.log('Data has been drained');
-  });
+    // This event is fired when the data source is drained no matter what was the data source.
+    // It is not part of this library but rather from the NodeJS Stream API.
+    // @see: https://nodejs.org/api/stream.html#stream_event_end
+    output.on('end', () => {
+      reject(new Error('Data has been drained'));
+    });
 
-  // good practice to catch warnings (ie stat failures and other non-blocking errors)
-  archive.on('warning', function(err) {
-    if (err.code === 'ENOENT') {
-      // log warning
-    } else {
-      // throw error
+    // good practice to catch warnings (ie stat failures and other non-blocking errors)
+    archive.on('warning', (err) => {
+      if (err.code === 'ENOENT') {
+        // log warning
+        console.log('ENOENT', err.message);
+      } else {
+        // throw error
+        reject(err);
+      }
+    });
+
+    // good practice to catch this error explicitly
+    archive.on('error', function(err) {
       throw err;
+    });
+
+    // pipe archive data to the file
+    archive.pipe(output);
+
+    // choose what files need to be archived
+    switch (target) {
+      case 'chrome':
+        archive.directory(ext.pathToUnpacked, name);
+        break;
+      case 'firefox':
+        archive.directory(ext.pathToUnpacked, false);
+        break;
+      case 'source':
+        archive.glob('**', {
+          cwd: ext.pathToRoot,
+          ignore: ['build/**', 'node_modules/**'],
+        });
+        break;
     }
+
+    archive.finalize();
   });
+}
 
-  // good practice to catch this error explicitly
-  archive.on('error', function(err) {
-    throw err;
-  });
+export async function archiveUnpacked() {
+  const chrome = archiveCreate('chrome');
+  const firefox = archiveCreate('firefox');
+  const source = archiveCreate('source');
 
-  // pipe archive data to the file
-  archive.pipe(output);
+  try {
+    await Promise.all([chrome, firefox, source]);
 
-  if (target === 'chrome') {
-    archive.directory(paths.extUnpacked, zipName);
-  } else if (target === 'firefox') {
-    archive.directory(paths.extUnpacked, false);
+    console.log();
+    console.log('Success! Done compiling and archiving production folders');
+  } catch (err) {
+    console.log();
+    console.error('ERR!', err);
   }
-
-  archive.finalize();
-});
-
-const sourceZipName = `source-${packageJson.version}`;
-const sourceZipPath = `build/${sourceZipName}.zip`;
-
-fs.removeSync(sourceZipPath);
-
-const sourceOutput = fs.createWriteStream(sourceZipPath);
-const sourceArchive = archiver('zip', {
-  forceLocalTime: true, // Forces the archive to contain local file times instead of UTC.
-  zlib: { level: 9 }, // Sets the compression level.
-});
-
-// listen for all archive data to be written
-// 'close' event is fired only when a file descriptor is involved
-sourceOutput.on('close', function() {
-  console.log(`${sourceZipPath} created: ${sourceArchive.pointer()} total bytes`);
-});
-
-// This event is fired when the data source is drained no matter what was the data source.
-// It is not part of this library but rather from the NodeJS Stream API.
-// @see: https://nodejs.org/api/stream.html#stream_event_end
-sourceOutput.on('end', function() {
-  console.log('Data has been drained');
-});
-
-// good practice to catch warnings (ie stat failures and other non-blocking errors)
-sourceArchive.on('warning', function(err) {
-  if (err.code === 'ENOENT') {
-    // log warning
-  } else {
-    // throw error
-    throw err;
-  }
-});
-
-// good practice to catch this error explicitly
-sourceArchive.on('error', function(err) {
-  throw err;
-});
-
-// pipe archive data to the file
-sourceArchive.pipe(sourceOutput);
-
-// sourceArchive.directory(extPath, false);
-sourceArchive.glob('**', {
-  cwd: paths.extRoot,
-  ignore: ['build/**', 'node_modules/**'],
-});
-
-sourceArchive.finalize();
+}

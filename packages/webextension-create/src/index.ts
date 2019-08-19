@@ -1,74 +1,74 @@
 #!/usr/bin/env node
 
 import chalk from 'chalk';
-import commander from 'commander';
+import program from 'commander';
 import fs from 'fs-extra';
+import inquirer from 'inquirer';
 import path from 'path';
 import spawn from 'cross-spawn';
 import validate from 'validate-npm-package-name';
 
 const packageJson = fs.readJSONSync(path.join(__dirname, '..', 'package.json'));
 
-let extName = '';
-
-const program = new commander.Command(packageJson.name)
-  .version(packageJson.version)
-  .arguments('<project-directory>')
-  .usage(`${chalk.green('<project-directory>')} [options]`)
-  .option('-r, --react', 'Use React in your extension.')
-  .option('-t, --typescript', 'Use Typescript in your extension.')
-  .option('--dev')
-  .action((dir: string) => {
-    extName = dir;
-  })
+program
+  .name(packageJson.name)
+  .version(packageJson.version, '-v, --version')
+  .option('-d, --dev', 'use link instead of install for webextension-scripts')
   .parse(process.argv);
 
-if (!extName) {
-  console.error('Please specify the project directory:');
-  console.log(`  ${chalk.cyan(program.name())} ${chalk.green('<project-directory>')}`);
+const questions = [
+  {
+    type: 'input',
+    name: 'name',
+    message: 'Enter the name of your project',
+    default: 'my-webextension',
+    validate(value: string | undefined) {
+      const valid = validate(value);
+
+      if (!valid.validForNewPackages) {
+        if (valid.errors) return valid.errors[0];
+        if (valid.warnings) return valid.warnings[0];
+      }
+
+      const pathExists = value && fs.existsSync(path.resolve(value));
+
+      if (pathExists) {
+        return 'The path already exists! Please try a different name or delete the folder.';
+      }
+
+      return true;
+    },
+  },
+  {
+    type: 'list',
+    name: 'template',
+    message: 'Choose a webextension template to use',
+    choices: ['javascript', 'react', 'react-typescript', 'typescript'],
+    default: 'javascript',
+  },
+];
+
+// @ts-ignore
+inquirer.prompt(questions).then((answers: { name: string; template: string }) => {
+  createBrowserExtension(answers.name, answers.template, program.dev);
+});
+
+function createBrowserExtension(name: string, template: string, dev: boolean) {
+  const extPathToRoot = path.resolve(name);
+
+  fs.ensureDirSync(name);
+
+  createPackageJson(extPathToRoot, name);
+  installScripts(extPathToRoot, dev);
+  initScript(extPathToRoot, template);
+
   console.log();
-  console.log('For example:');
-  console.log(`  ${chalk.cyan(program.name())} ${chalk.green('my-web-ext')}`);
+  console.log(`webextension-create finished creating ${chalk.green(name)}`);
+}
+
+function createPackageJson(extPathToRoot: string, extName: string) {
   console.log();
-  console.log(`Run ${chalk.cyan(`${program.name()} --help`)} to see all options.`);
-  process.exit(1);
-}
-
-const valid = validate(extName);
-
-if (!valid.validForNewPackages) {
-  console.log('Invalid directory name:');
-  if (valid.errors) console.log(`  ${valid.errors[0]}`);
-  if (valid.warnings) console.log(`  ${valid.warnings[0]}`);
-  process.exit(1);
-}
-
-const pathExists = fs.existsSync(path.resolve(extName));
-
-if (pathExists) {
-  console.log('The path already exists! Please try a different name or delete the folder.');
-  process.exit(1);
-}
-
-if (extName) {
-  createBrowserExtension(extName, program.react, program.typescript, program.dev);
-}
-
-function createBrowserExtension(extName: string, useReact: boolean, useTypescript: boolean, isDev: boolean) {
-  const projectRoot = path.resolve(extName);
-
-  fs.ensureDirSync(extName);
-
-  createPackageJson(projectRoot, extName);
-  installDependencies(projectRoot, useReact, useTypescript, isDev);
-
-  spawn.sync('webextension-scripts', ['init'], { stdio: 'inherit', cwd: projectRoot });
-
-  console.log(`Done creating ${chalk.green(extName)}.`);
-}
-
-function createPackageJson(projectRoot: string, extName: string) {
-  console.log(`Creating a new browser extension in ${chalk.green(projectRoot)}.`);
+  console.log(`Creating package.json for ${extName} in ${chalk.green(extPathToRoot)}`);
   console.log();
 
   const packageJson = {
@@ -76,33 +76,21 @@ function createPackageJson(projectRoot: string, extName: string) {
     version: '0.1.0',
   };
 
-  fs.outputJsonSync(path.join(projectRoot, 'package.json'), packageJson, { spaces: 2 });
+  fs.outputJsonSync(path.join(extPathToRoot, 'package.json'), packageJson, { spaces: 2 });
 }
 
-function installDependencies(projectRoot: string, useReact: boolean, useTypescript: boolean, isDev: boolean) {
-  const dependencies = isDev ? [] : ['webextension-scripts'];
+function installScripts(extPathToRoot: string, dev: boolean) {
+  const command = !dev ? 'install' : 'link';
 
-  if (useReact) {
-    dependencies.push('react', 'react-dom');
-  }
-
-  if (useTypescript) {
-    dependencies.push('typescript');
-  }
-
-  if (useReact && useTypescript) {
-    dependencies.push('@types/react', '@types/react-dom');
-  }
-
-  console.log(`Installing dependencies in ${chalk.green(projectRoot)}.`);
+  console.log(`${command} webextension-scripts in ${chalk.green(extPathToRoot)}`);
   console.log();
 
-  spawn.sync('npm', ['install', ...dependencies, '-S'], { stdio: 'inherit', cwd: projectRoot });
+  spawn.sync('npm', [command, '-S', 'webextension-scripts'], { stdio: 'inherit', cwd: extPathToRoot });
+}
 
-  if (isDev) {
-    console.log(`Linking dependencies in ${chalk.green(projectRoot)}.`);
-    console.log();
+function initScript(extPathToRoot: string, template: string) {
+  console.log(`Running webextension-scripts init ${template}`);
+  console.log();
 
-    spawn.sync('npm', ['link', 'webextension-scripts'], { stdio: 'inherit', cwd: projectRoot });
-  }
+  spawn.sync('webextension-scripts', ['init', template], { stdio: 'inherit', cwd: extPathToRoot });
 }

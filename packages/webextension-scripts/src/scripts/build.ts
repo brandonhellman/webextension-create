@@ -1,27 +1,33 @@
 import webpack from 'webpack';
 
-import { production } from '../webpack/config';
+import { archiveUnpacked } from '../utils/archiveUnpacked';
+import { config } from '../webpack/config';
 
-// @ts-ignore
-webpack(production).run((err: Error, stats: webpack.Stats) => {
-  if (err) {
-    console.error(err);
-    return;
-  }
+export function build() {
+  const { production } = config();
 
-  const info = stats.toJson();
+  // @ts-ignore
+  webpack(production).run((err: Error, stats: webpack.Stats) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
 
-  if (stats.hasErrors()) {
-    console.log('Failed to compile.');
-    console.error(info.errors);
-    return;
-  }
+    const info = stats.toJson();
 
-  if (stats.hasWarnings()) {
-    console.warn(info.warnings);
-  }
+    if (stats.hasErrors()) {
+      console.log('Failed to compile.');
+      console.error(info.errors);
+      return;
+    }
 
-  console.log(`Compiled in ${stats.endTime && stats.startTime ? stats.endTime - stats.startTime : '?'}ms!`);
-  require('../utils/archiveUnpacked');
-  console.log('Done packaging for distribution.');
-});
+    if (stats.hasWarnings()) {
+      console.warn(info.warnings);
+    }
+
+    console.log(`Compiled in ${stats.endTime && stats.startTime ? stats.endTime - stats.startTime : '?'}ms!`);
+    console.log();
+
+    archiveUnpacked();
+  });
+}

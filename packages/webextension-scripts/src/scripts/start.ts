@@ -1,25 +1,29 @@
 import webpack from 'webpack';
 
-import { development } from '../webpack/config';
+import { config } from '../webpack/config';
 
-// @ts-ignore
-webpack(development).watch({ aggregateTimeout: 300, poll: 1000 }, (err: Error, stats: webpack.Stats) => {
-  if (err) {
-    console.error(err);
-    return;
-  }
+export async function start() {
+  const { development } = config();
 
-  const info = stats.toJson();
+  // @ts-ignore
+  webpack(development).watch({ aggregateTimeout: 300, poll: 1000 }, (err: Error, stats: webpack.Stats) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
 
-  if (stats.hasErrors()) {
-    console.log('Failed to compile.');
-    console.error(info.errors);
-    return;
-  }
+    const info = stats.toJson();
 
-  if (stats.hasWarnings()) {
-    console.warn(info.warnings);
-  }
+    if (stats.hasErrors()) {
+      console.log('Failed to compile.');
+      console.error(info.errors);
+      return;
+    }
 
-  console.log(`Compiled in ${stats.endTime && stats.startTime ? stats.endTime - stats.startTime : '?'}ms!`);
-});
+    if (stats.hasWarnings()) {
+      console.warn(info.warnings);
+    }
+
+    console.log(`Compiled in ${stats.endTime && stats.startTime ? stats.endTime - stats.startTime : '?'}ms!`);
+  });
+}
