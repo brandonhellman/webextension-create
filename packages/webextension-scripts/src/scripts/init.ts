@@ -47,7 +47,8 @@ const copy = {
     typescriptInstaller();
     tsconfigSetup();
     fs.copySync(pkg.pathToTypescript, ext.pathToSrc);
-
+    fs.copySync(pkg.pathToEnvTypes, ext.pathToEnvTypes);
+    
     console.log();
     console.log(`Copied the typescript template into ${chalk.green(ext.pathToSrc)}`);
   },
