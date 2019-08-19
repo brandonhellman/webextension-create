@@ -28,7 +28,3 @@ The extension will automatically reload when you save changes.
 ### `npm run build`
 
 Compiles the extension into `./build/unpacked` and then packages that into production ready zips at `./build/{target}-{version}.zip`.
-
----
-
-Additional documentation: https://github.com/kadauchi/webextension-create#webextension-create
