@@ -2,7 +2,7 @@
   "name": "root",
   "private": true,
   "devDependencies": {
-    "eslint": "^6.1.0",
+    "eslint": "^6.2.0",
     "eslint-plugin-react": "^7.14.3",
     "lerna": "^3.16.4",
     "prettier": "^1.18.2"
