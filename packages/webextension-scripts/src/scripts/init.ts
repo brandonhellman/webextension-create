@@ -1,3 +1,4 @@
+import chalk from 'chalk';
 import fs from 'fs-extra';
 import spawn from 'cross-spawn';
 
@@ -10,26 +11,26 @@ const copy = {
     fs.copySync(pkg.pathToGitignore, ext.pathToGitignore);
 
     console.log();
-    console.log(`Copied .gitignore into ${ext.pathToRoot}`);
+    console.log(`Copied .gitignore into ${chalk.green(ext.pathToRoot)}`);
   },
   readme() {
     fs.copySync(pkg.pathToReadme, ext.pathToReadme);
 
     console.log();
-    console.log(`Copied README.md into ${ext.pathToRoot}`);
+    console.log(`Copied README.md into ${chalk.green(ext.pathToRoot)}`);
   },
   js() {
     fs.copySync(pkg.pathToJs, ext.pathToSrc);
 
     console.log();
-    console.log(`Copied the js template into ${ext.pathToSrc}`);
+    console.log(`Copied the js template into ${chalk.green(ext.pathToSrc)}`);
   },
   react() {
     reactInstaller();
     fs.copySync(pkg.pathToReact, ext.pathToSrc);
 
     console.log();
-    console.log(`Copied the react template into ${ext.pathToSrc}`);
+    console.log(`Copied the react template into ${chalk.green(ext.pathToSrc)}`);
   },
   reactTypescript() {
     reactInstaller();
@@ -40,7 +41,7 @@ const copy = {
     fs.copySync(pkg.pathToEnvTypes, ext.pathToEnvTypes);
 
     console.log();
-    console.log(`Copied the reactTypescript template into ${ext.pathToSrc}`);
+    console.log(`Copied the reactTypescript template into ${chalk.green(ext.pathToSrc)}`);
   },
   typescript() {
     typescriptInstaller();
@@ -48,7 +49,7 @@ const copy = {
     fs.copySync(pkg.pathToTypescript, ext.pathToSrc);
 
     console.log();
-    console.log(`Copied the typescript template into ${ext.pathToSrc}`);
+    console.log(`Copied the typescript template into ${chalk.green(ext.pathToSrc)}`);
   },
 };
 
@@ -65,7 +66,7 @@ function scriptRulesSetup() {
   fs.outputJsonSync(ext.pathToPackageJson, ext.packageJson, { spaces: 2 });
 
   console.log();
-  console.log(`Script rules setup in ${ext.pathToPackageJson}`);
+  console.log(`Script rules setup in ${chalk.green(ext.pathToPackageJson)}`);
 }
 
 function reactInstaller() {
@@ -120,26 +121,26 @@ export function init(template: string | undefined) {
   if (template) {
     if (extHasSrc()) {
       console.log();
-      console.error(`ERR! ${ext.pathToSrc} already exists`);
+      console.error(`ERR! ${chalk.red(ext.pathToSrc)} already exists`);
       return;
     }
 
     switch (template) {
-      case 'js':
+      case 'JavaScript':
         copy.js();
         break;
-      case 'react':
+      case 'TypeScript':
+        copy.typescript();
+        break;
+      case 'React':
         copy.react();
         break;
-      case 'reactTypescript':
+      case 'ReactTypescript':
         copy.reactTypescript();
-        break;
-      case 'typescript':
-        copy.typescript();
         break;
       default:
         console.log();
-        console.error('ERR! An incorrect template was provided');
+        console.error(`ERR! An incorrect template ${chalk.red(template)} was provided`);
         return;
     }
 
