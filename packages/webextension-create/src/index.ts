@@ -12,7 +12,7 @@ const packageJson = fs.readJSONSync(path.join(__dirname, '..', 'package.json'));
 
 program
   .name(packageJson.name)
-  .version(packageJson.version)
+  .version(packageJson.version, '-v, --version')
   .option('-d, --dev', 'Use link instead of install for webextension-scripts')
   .parse(process.argv);
 

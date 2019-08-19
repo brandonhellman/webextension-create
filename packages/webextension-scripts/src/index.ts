@@ -12,7 +12,7 @@ let option: string | undefined;
 
 program
   .name(packageJson.name)
-  .version(packageJson.version)
+  .version(packageJson.version, '-v, --version')
   .usage('<script> [option]');
 
 program
