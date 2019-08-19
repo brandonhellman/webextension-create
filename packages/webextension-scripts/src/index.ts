@@ -32,7 +32,7 @@ program
 
 program
   .command('start')
-  .description('start developing the web extension with auto reload')
+  .description('start developing with auto reload')
   .action(() => {
     script = 'start';
   });
