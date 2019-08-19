@@ -6,9 +6,11 @@ In the project directory, you can run:
 
 ### `npm run start`
 
-Compiles the extension into `./build/unpacked` to be loaded into your broswer for development. The extension automatically reloads when you save changes to the code.
+Compiles the extension into `./build/unpacked` to be that can be loaded into [Chrome](#load-into-chrome) or [Firefox](#load-into-firefox) for development.
 
-##### Load into Chrome
+The extension will automatically reload when you save changes.
+
+#### Load into Chrome
 
 1. Open Chrome
 2. Go to `chrome://extensions`
@@ -16,7 +18,7 @@ Compiles the extension into `./build/unpacked` to be loaded into your broswer fo
 4. Click `Load unpacked`
 5. Select folder `./build/unpacked`
 
-##### Load into Firefox
+#### Load into Firefox
 
 1. Open Firefox
 2. Go to `about:debugging`
@@ -25,7 +27,7 @@ Compiles the extension into `./build/unpacked` to be loaded into your broswer fo
 
 ### `npm run build`
 
-Compiles the extension and packages them into production ready zips at `./build/{target}-{version}.zip`. These zips can then be uploaded to their respective extension stores.
+Compiles the extension into `./build/unpacked` and then packages that into production ready zips at `./build/{target}-{version}.zip`.
 
 ---
 
