@@ -2,18 +2,14 @@
 
 This package includes the global command for [WebExtension Create](https://github.com/kadauchi/webextension-create).
 
-## Creating an Extension
-
-To create an extension you can use the following method:
-
-### npx
-
-Usage:
+##### Usage
 
 ```
-npx webextension-create [options]
+webextension-create [options]
 ```
 
-Options:
+##### Options
 
-- `--dev` Use link instead of install for webextension-scripts.
+- `-v` `--version` output the version number
+- `-d` `--dev` use link instead of install for webextension-scripts
+- `-h` `--help` output usage information
