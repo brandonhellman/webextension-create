@@ -3,7 +3,7 @@ import fs from 'fs-extra';
 
 import * as ext from './ext';
 
-function archiveCreate(target: 'chrome' | 'firefox' | 'source') {
+function archiveCreate(target: 'chrome' | 'firefox' | 'opera' | 'source') {
   return new Promise((resolve, reject) => {
     const name = `${target}-${ext.packageJson.version}`;
     const path = `build/${name}.zip`;
@@ -55,6 +55,7 @@ function archiveCreate(target: 'chrome' | 'firefox' | 'source') {
         archive.directory(ext.pathToUnpacked, name);
         break;
       case 'firefox':
+      case 'opera':
         archive.directory(ext.pathToUnpacked, false);
         break;
       case 'source':
@@ -72,10 +73,11 @@ function archiveCreate(target: 'chrome' | 'firefox' | 'source') {
 export async function archiveUnpacked() {
   const chrome = archiveCreate('chrome');
   const firefox = archiveCreate('firefox');
+  const opera = archiveCreate('opera');
   const source = archiveCreate('source');
 
   try {
-    await Promise.all([chrome, firefox, source]);
+    await Promise.all([chrome, firefox, opera, source]);
 
     console.log();
     console.log('Success! Done compiling and archiving production folders');
