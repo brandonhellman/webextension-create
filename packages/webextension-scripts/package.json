@@ -5,6 +5,7 @@
   "license": "ISC",
   "files": [
     "bin/**/*",
+    "polyfill/**/*",
     "templates/**/*"
   ],
   "main": "bin/index.js",
@@ -57,6 +58,7 @@
     "source-map-loader": "^0.2.4",
     "style-loader": "^1.0.0",
     "webextension-polyfill": "^0.4.0",
+    "webextension-polyfill-ts": "^0.9.1",
     "webpack": "^4.39.2",
     "webpack-extension-reloader": "^1.1.0",
     "webpack-format-messages": "^2.0.5"
