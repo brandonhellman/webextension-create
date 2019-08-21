@@ -1,6 +1,6 @@
 {
-  "name": "root",
   "private": true,
+  "name": "root",
   "devDependencies": {
     "eslint": "^6.2.0",
     "eslint-plugin-react": "^7.14.3",
