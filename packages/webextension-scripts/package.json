@@ -1,6 +1,6 @@
 {
   "name": "webextension-scripts",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "description": "Configuration and scripts for WebExtension Create.",
   "license": "ISC",
   "files": [
@@ -42,7 +42,7 @@
     "cross-spawn": "^6.0.5",
     "css-loader": "^3.2.0",
     "eslint": "^6.2.1",
-    "eslint-config-webextension": "^0.4.5",
+    "eslint-config-webextension": "^0.4.6",
     "eslint-loader": "^2.2.1",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
