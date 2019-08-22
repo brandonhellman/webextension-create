@@ -48,7 +48,7 @@ const copy = {
     tsconfigSetup();
     fs.copySync(pkg.pathToTypescript, ext.pathToSrc);
     fs.copySync(pkg.pathToEnvTypes, ext.pathToEnvTypes);
-    
+
     console.log();
     console.log(`Copied the typescript template into ${chalk.green(ext.pathToSrc)}`);
   },
@@ -59,15 +59,30 @@ function extHasSrc() {
 }
 
 function scriptRulesSetup() {
-  ext.packageJson.scripts = {
+  const packageJson = ext.getPackageJson();
+
+  packageJson.scripts = {
     start: 'webextension-scripts start',
     build: 'webextension-scripts build',
   };
 
-  fs.outputJsonSync(ext.pathToPackageJson, ext.packageJson, { spaces: 2 });
+  fs.outputJsonSync(ext.pathToPackageJson, packageJson, { spaces: 2 });
 
   console.log();
   console.log(`Script rules setup in ${chalk.green(ext.pathToPackageJson)}`);
+}
+
+function eslintConfigSetup() {
+  const packageJson = ext.getPackageJson();
+
+  packageJson.eslintConfig = {
+    extends: 'eslint-config-webextension',
+  };
+
+  fs.outputJsonSync(ext.pathToPackageJson, packageJson, { spaces: 2 });
+
+  console.log();
+  console.log(`esling config setup in ${chalk.green(ext.pathToPackageJson)}`);
 }
 
 function reactInstaller() {
@@ -153,4 +168,5 @@ export function init(template: string | undefined) {
   }
 
   scriptRulesSetup();
+  eslintConfigSetup();
 }

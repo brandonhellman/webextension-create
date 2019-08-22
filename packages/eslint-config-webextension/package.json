@@ -1,0 +1,37 @@
+{
+  "name": "eslint-config-webextension",
+  "version": "0.5.0",
+  "description": "ESLint configuration used by WebExtension Create",
+  "license": "ISC",
+  "files": [
+    "bin/**/*"
+  ],
+  "main": "bin/index.js",
+  "types": "bin/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Kadauchi/webextension-create.git",
+    "directory": "packages/eslint-config-webextension"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "prepare": "npm run build"
+  },
+  "devDependencies": {
+    "typescript": "^3.5.3"
+  },
+  "peerDependencies": {
+    "@typescript-eslint/eslint-plugin": "1.x",
+    "@typescript-eslint/parser": "1.x",
+    "babel-eslint": "10.x",
+    "eslint": "6.x",
+    "eslint-plugin-import": "2.x",
+    "eslint-plugin-jsx-a11y": "6.x",
+    "eslint-plugin-react": "7.x",
+    "eslint-plugin-react-hooks": "1.x"
+  },
+  "dependencies": {
+    "confusing-browser-globals": "^1.0.8"
+  }
+}
