@@ -1,6 +1,6 @@
 {
   "name": "eslint-config-webextension",
-  "version": "0.4.7",
+  "version": "0.5.0",
   "description": "ESLint configuration used by WebExtension Create",
   "license": "ISC",
   "files": [
