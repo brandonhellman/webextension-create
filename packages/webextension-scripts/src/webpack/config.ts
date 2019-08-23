@@ -46,7 +46,11 @@ export function config() {
         },
         {
           test: /\.(gif|jpe?g|mp4|png|wav)$/,
-          use: [require.resolve('file-loader')],
+          loader: require.resolve('file-loader'),
+          options: {
+            name: '[path][name].[ext]',
+            context: 'src'
+          },
         },
       ],
     },
