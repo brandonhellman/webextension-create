@@ -61,7 +61,8 @@ export function webextension() {
     if (typeof value === 'string') {
       const parsed = path.parse(value);
 
-      if (parsed.ext === '.png') {
+      
+      if (parsed.ext === '.png' && !value.includes('*')) {
         webpackPlugins.push(
           new CopyWebpackPlugin([
             {
