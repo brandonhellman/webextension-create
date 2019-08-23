@@ -66,6 +66,7 @@ export function webextension() {
           new CopyWebpackPlugin([
             {
               from: path.join(ext.pathToSrc, value),
+              to: path.join(ext.pathToUnpacked, value),
             },
           ]),
         );
