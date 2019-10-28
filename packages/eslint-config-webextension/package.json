@@ -19,7 +19,7 @@
     "prepare": "npm run build"
   },
   "devDependencies": {
-    "typescript": "^3.5.3"
+    "typescript": "^3.6.4"
   },
   "peerDependencies": {
     "@typescript-eslint/eslint-plugin": "1.x",
@@ -32,6 +32,6 @@
     "eslint-plugin-react-hooks": "1.x"
   },
   "dependencies": {
-    "confusing-browser-globals": "^1.0.8"
+    "confusing-browser-globals": "^1.0.9"
   }
 }
