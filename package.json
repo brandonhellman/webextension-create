@@ -2,9 +2,9 @@
   "private": true,
   "name": "root",
   "devDependencies": {
-    "eslint": "^6.2.0",
-    "eslint-plugin-react": "^7.14.3",
-    "lerna": "^3.16.4",
+    "eslint": "^6.6.0",
+    "eslint-plugin-react": "^7.16.0",
+    "lerna": "^3.18.3",
     "prettier": "^1.18.2"
   }
 }

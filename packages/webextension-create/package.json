@@ -1,6 +1,6 @@
 {
   "name": "webextension-create",
-  "version": "0.5.1",
+  "version": "0.5.4",
   "description": "Create web extensions with no build configuration.",
   "license": "ISC",
   "files": [
@@ -22,17 +22,17 @@
     "prepare": "npm run build"
   },
   "dependencies": {
-    "@types/inquirer": "^6.5.0",
     "chalk": "^2.4.2",
-    "commander": "^3.0.0",
+    "commander": "^3.0.2",
     "cross-spawn": "^6.0.5",
     "fs-extra": "^8.1.0",
-    "inquirer": "^6.5.1",
+    "inquirer": "^6.5.2",
     "validate-npm-package-name": "^3.0.0"
   },
   "devDependencies": {
-    "@types/cross-spawn": "^6.0.0",
-    "@types/fs-extra": "^8.0.0",
-    "typescript": "^3.5.3"
+    "@types/cross-spawn": "^6.0.1",
+    "@types/fs-extra": "^8.0.1",
+    "@types/inquirer": "^6.5.0",
+    "typescript": "^3.6.4"
   }
 }
