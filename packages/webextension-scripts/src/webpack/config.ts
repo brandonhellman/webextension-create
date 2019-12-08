@@ -31,7 +31,11 @@ export function config() {
                 require.resolve('@babel/preset-react'),
                 require.resolve('@babel/preset-typescript'),
               ],
-              plugins: [require.resolve('@babel/plugin-transform-runtime')],
+              plugins: [
+                require.resolve('@babel/plugin-transform-runtime'),
+                require.resolve('@babel/plugin-proposal-nullish-coalescing-operator'),
+                require.resolve('@babel/plugin-proposal-optional-chaining'),
+              ],
             },
           },
         },
@@ -49,7 +53,7 @@ export function config() {
           loader: require.resolve('file-loader'),
           options: {
             name: '[path][name].[ext]',
-            context: 'src'
+            context: 'src',
           },
         },
       ],
