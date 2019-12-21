@@ -92,5 +92,5 @@ function initScript(extPathToRoot: string, template: string) {
   console.log(`Running webextension-scripts init ${template}`);
   console.log();
 
-  spawn.sync('webextension-scripts', ['init', template], { stdio: 'inherit', cwd: extPathToRoot });
+  spawn.sync('npx', ['webextension-scripts', 'init', template], { stdio: 'inherit', cwd: extPathToRoot });
 }
