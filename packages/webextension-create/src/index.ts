@@ -85,7 +85,7 @@ function installScripts(extPathToRoot: string, dev: boolean) {
   console.log(`${command} webextension-scripts in ${chalk.green(extPathToRoot)}`);
   console.log();
 
-  spawn.sync('npm', [command, '-S', 'webextension-scripts'], { stdio: 'inherit', cwd: extPathToRoot });
+  spawn.sync('npm', [command, 'webextension-scripts'], { stdio: 'inherit', cwd: extPathToRoot });
 }
 
 function initScript(extPathToRoot: string, template: string) {
