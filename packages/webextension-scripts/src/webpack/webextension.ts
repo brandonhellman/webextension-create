@@ -61,7 +61,6 @@ export function webextension() {
     if (typeof value === 'string') {
       const parsed = path.parse(value);
 
-      
       if (parsed.ext === '.png' && !value.includes('*')) {
         webpackPlugins.push(
           new CopyWebpackPlugin([
@@ -102,6 +101,21 @@ export function webextension() {
       const name = script.replace(parsed.ext, '');
       webpackEntries[name] = path.resolve(ext.pathToSrc, script);
       reloaderEntries.contentScript.push(name);
+    });
+  }
+
+  if (manifest.web_accessible_resources) {
+    manifest.web_accessible_resources.forEach((resource: string) => {
+      glob.sync(resource, { cwd: ext.pathToSrc }).forEach((file) => {
+        webpackPlugins.push(
+          new CopyWebpackPlugin([
+            {
+              from: path.join(ext.pathToSrc, file),
+              to: path.join(ext.pathToUnpacked, file),
+            },
+          ]),
+        );
+      });
     });
   }
 
