@@ -13,7 +13,10 @@ const packageJson = fs.readJSONSync(path.join(__dirname, '..', 'package.json'));
 program
   .name(packageJson.name)
   .version(packageJson.version, '-v, --version')
-  .option('-d, --dev', 'use link instead of install for webextension-scripts')
+  .option(
+    '-d, --dev',
+    'installs webextension-scripts with npm link instead of npm install'
+  )
   .parse(process.argv);
 
 const questions = [
@@ -33,7 +36,9 @@ const questions = [
       const pathExists = value && fs.existsSync(path.resolve(value));
 
       if (pathExists) {
-        return `The path ${chalk.green(value)} already exists! Please try a different name or delete the folder.`;
+        return `The path ${chalk.green(
+          value
+        )} already exists! Please try a different name or delete the folder.`;
       }
 
       return true;
