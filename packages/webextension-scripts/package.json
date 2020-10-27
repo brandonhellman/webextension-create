@@ -19,9 +19,8 @@
     "directory": "packages/webextension-scripts"
   },
   "scripts": {
-    "build": "tsc && node build.js",
-    "watch": "tsc --watch",
-    "prepare": "npm run build"
+    "dev": "tsc --watch",
+    "prepare": "tsc && node build.js"
   },
   "dependencies": {
     "@babel/core": "^7.12.3",
