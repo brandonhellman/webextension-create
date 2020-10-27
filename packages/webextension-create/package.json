@@ -17,9 +17,8 @@
     "directory": "packages/webextension-create"
   },
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc --watch",
-    "prepare": "npm run build"
+    "dev": "tsc --watch",
+    "prepare": "tsc"
   },
   "dependencies": {
     "chalk": "^4.1.0",
