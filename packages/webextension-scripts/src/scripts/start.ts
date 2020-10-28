@@ -4,12 +4,16 @@ import webpack from 'webpack';
 export async function start() {
   const { development } = config();
 
-  // @ts-ignore
   webpack(development).watch(
     { aggregateTimeout: 300, poll: 1000 },
-    (err: Error, stats: webpack.Stats) => {
+    (err, stats) => {
       if (err) {
         console.error(err);
+        return;
+      }
+
+      if (!stats) {
+        console.error('No stats!');
         return;
       }
 

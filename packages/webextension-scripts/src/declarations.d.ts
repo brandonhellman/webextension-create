@@ -1,1 +1,2 @@
-declare module 'webpack-extension-reloader/dist/webpack-extension-reloader';
+declare module 'generate-json-webpack-plugin';
+declare module 'copy-webpack-plugin';

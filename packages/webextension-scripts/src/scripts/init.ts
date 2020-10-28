@@ -1,9 +1,9 @@
+import * as ext from '../utils/ext';
+import * as pkg from '../utils/pkg';
+
 import chalk from 'chalk';
 import fs from 'fs-extra';
 import spawn from 'cross-spawn';
-
-import * as ext from '../utils/ext';
-import * as pkg from '../utils/pkg';
 import { tsconfigSetup } from '../utils/tsconfigSetup';
 
 const copy = {
@@ -23,7 +23,9 @@ const copy = {
     fs.copySync(pkg.pathToJavascript, ext.pathToSrc);
 
     console.log();
-    console.log(`Copied the javascript template into ${chalk.green(ext.pathToSrc)}`);
+    console.log(
+      `Copied the javascript template into ${chalk.green(ext.pathToSrc)}`
+    );
   },
   react() {
     reactInstaller();
@@ -41,7 +43,9 @@ const copy = {
     fs.copySync(pkg.pathToEnvTypes, ext.pathToEnvTypes);
 
     console.log();
-    console.log(`Copied the react-typescript template into ${chalk.green(ext.pathToSrc)}`);
+    console.log(
+      `Copied the react-typescript template into ${chalk.green(ext.pathToSrc)}`
+    );
   },
   typescript() {
     typescriptInstaller();
@@ -50,7 +54,9 @@ const copy = {
     fs.copySync(pkg.pathToEnvTypes, ext.pathToEnvTypes);
 
     console.log();
-    console.log(`Copied the typescript template into ${chalk.green(ext.pathToSrc)}`);
+    console.log(
+      `Copied the typescript template into ${chalk.green(ext.pathToSrc)}`
+    );
   },
 };
 
@@ -72,6 +78,7 @@ function scriptRulesSetup() {
   console.log(`Script rules setup in ${chalk.green(ext.pathToPackageJson)}`);
 }
 
+/*
 function eslintConfigSetup() {
   const packageJson = ext.getPackageJson();
 
@@ -84,6 +91,7 @@ function eslintConfigSetup() {
   console.log();
   console.log(`esling config setup in ${chalk.green(ext.pathToPackageJson)}`);
 }
+*/
 
 function reactInstaller() {
   const dependencies = ext.packageJson.dependencies || {};
@@ -92,7 +100,10 @@ function reactInstaller() {
     console.log('Installing react and react-dom');
     console.log();
 
-    const proc = spawn.sync('npm', ['install', '-S', 'react', 'react-dom'], { stdio: 'inherit', cwd: ext.pathToRoot });
+    const proc = spawn.sync('npm', ['install', '-S', 'react', 'react-dom'], {
+      stdio: 'inherit',
+      cwd: ext.pathToRoot,
+    });
 
     if (proc.status !== 0) {
       console.error('Failed when installing react and react-dom');
@@ -107,10 +118,14 @@ function reactTypesInstaller() {
     console.log('Installing @types/react and @types/react-dom');
     console.log();
 
-    const proc = spawn.sync('npm', ['install', '-S', '@types/react', '@types/react-dom'], {
-      stdio: 'inherit',
-      cwd: ext.pathToRoot,
-    });
+    const proc = spawn.sync(
+      'npm',
+      ['install', '-S', '@types/react', '@types/react-dom'],
+      {
+        stdio: 'inherit',
+        cwd: ext.pathToRoot,
+      }
+    );
 
     if (proc.status !== 0) {
       console.error('Failed when installing @types/react and @types/react-dom');
@@ -125,7 +140,10 @@ function typescriptInstaller() {
     console.log('Installing typescript');
     console.log();
 
-    const proc = spawn.sync('npm', ['install', '-S', 'typescript'], { stdio: 'inherit', cwd: ext.pathToRoot });
+    const proc = spawn.sync('npm', ['install', '-S', 'typescript'], {
+      stdio: 'inherit',
+      cwd: ext.pathToRoot,
+    });
 
     if (proc.status !== 0) {
       console.error('Failed when installing react and react-dom');
@@ -156,7 +174,9 @@ export function init(template: string | undefined) {
         break;
       default:
         console.log();
-        console.error(`The provided template ${chalk.red(template)} does not exist!`);
+        console.error(
+          `The provided template ${chalk.red(template)} does not exist!`
+        );
         return;
     }
 
@@ -168,5 +188,5 @@ export function init(template: string | undefined) {
   }
 
   scriptRulesSetup();
-  eslintConfigSetup();
+  // eslintConfigSetup();
 }

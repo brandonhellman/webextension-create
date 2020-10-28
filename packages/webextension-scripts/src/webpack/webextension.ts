@@ -1,14 +1,16 @@
+import * as ext from '../utils/ext';
+import * as pkg from '../utils/pkg';
+
+import CopyPlugin from 'copy-webpack-plugin';
+import GenerateJsonPlugin from 'generate-json-webpack-plugin';
+import { JSDOM } from 'jsdom';
+import { WebpackPluginInstance } from 'webpack';
 import flatten from 'flat';
 import fs from 'fs-extra';
 import glob from 'glob';
-import { JSDOM } from 'jsdom';
 import path from 'path';
-import CopyWebpackPlugin from 'copy-webpack-plugin';
-import GenerateJsonPlugin from 'generate-json-webpack-plugin';
-import ExtensionReloader from 'webpack-extension-reloader/dist/webpack-extension-reloader';
 
-import * as ext from '../utils/ext';
-import * as pkg from '../utils/pkg';
+// import ExtensionReloader from 'webpack-extension-reloader/dist/webpack-extension-reloader';
 
 interface ReloaderEntries {
   background: string;
@@ -28,9 +30,13 @@ export function webextension() {
   const manifestJsExists = fs.pathExistsSync(ext.pathToManifestJs);
   const manifestJsonExists = fs.pathExistsSync(ext.pathToManifestJson);
 
-  const reloaderEntries: ReloaderEntries = { background: '', contentScript: [], extensionPage: [] };
+  const reloaderEntries: ReloaderEntries = {
+    background: '',
+    contentScript: [],
+    extensionPage: [],
+  };
   const webpackEntries: WebpackEntries = {};
-  const webpackPlugins: WebpackPlugins[] = [];
+  const webpackPlugins: WebpackPluginInstance[] = [];
 
   let manifest;
   let polyfill;
@@ -53,7 +59,9 @@ export function webextension() {
       .replace(/\.tsx"/g, '.js"')
       .replace(/\.ts"/g, '.js"');
 
-    webpackPlugins.push(new GenerateJsonPlugin('manifest.json', JSON.parse(replaced)));
+    webpackPlugins.push(
+      new GenerateJsonPlugin('manifest.json', JSON.parse(replaced))
+    );
   }
 
   // Look for any .png in the manifest and copy it over.
@@ -63,12 +71,14 @@ export function webextension() {
 
       if (parsed.ext === '.png' && !value.includes('*')) {
         webpackPlugins.push(
-          new CopyWebpackPlugin([
-            {
-              from: path.join(ext.pathToSrc, value),
-              to: path.join(ext.pathToUnpacked, value),
-            },
-          ]),
+          new CopyPlugin({
+            patterns: [
+              {
+                from: path.join(ext.pathToSrc, value),
+                to: path.join(ext.pathToUnpacked, value),
+              },
+            ],
+          })
         );
       }
     }
@@ -89,7 +99,10 @@ export function webextension() {
   }
 
   if (manifest.content_scripts) {
-    const scripts = manifest.content_scripts.reduce((acc: string[], { js }: { js: string[] }) => [...acc, ...js], []);
+    const scripts = manifest.content_scripts.reduce(
+      (acc: string[], { js }: { js: string[] }) => [...acc, ...js],
+      []
+    );
 
     scripts.forEach((script: string) => {
       if (script === 'browser-polyfill.js') {
@@ -108,12 +121,14 @@ export function webextension() {
     manifest.web_accessible_resources.forEach((resource: string) => {
       glob.sync(resource, { cwd: ext.pathToSrc }).forEach((file) => {
         webpackPlugins.push(
-          new CopyWebpackPlugin([
-            {
-              from: path.join(ext.pathToSrc, file),
-              to: path.join(ext.pathToUnpacked, file),
-            },
-          ]),
+          new CopyPlugin({
+            patterns: [
+              {
+                from: path.join(ext.pathToSrc, file),
+                to: path.join(ext.pathToUnpacked, file),
+              },
+            ],
+          })
         );
       });
     });
@@ -121,11 +136,16 @@ export function webextension() {
 
   if (polyfill) {
     webpackPlugins.push(
-      new CopyWebpackPlugin([
-        {
-          from: path.resolve(pkg.pathToNodeModules, 'webextension-polyfill/dist/browser-polyfill.js'),
-        },
-      ]),
+      new CopyPlugin({
+        patterns: [
+          {
+            from: path.resolve(
+              pkg.pathToNodeModules,
+              'webextension-polyfill/dist/browser-polyfill.js'
+            ),
+          },
+        ],
+      })
     );
   }
 
@@ -151,38 +171,40 @@ export function webextension() {
     });
 
     webpackPlugins.push(
-      new CopyWebpackPlugin([
-        {
-          from: path.join(ext.pathToSrc, htmlFile),
-          to: path.join(ext.pathToUnpacked, htmlFile),
-          transform(content) {
-            return (
-              content
-                .toString()
-                // Transform .tsx into .js
-                .replace(/src=".+(\.tsx)"/g, (match) => {
-                  return match.replace('.tsx"', '.js"');
-                })
-                // Transform .jsx into .js
-                .replace(/src=".+(\.jsx)"/g, (match) => {
-                  return match.replace('.jsx"', '.js"');
-                })
-                // Transform .ts into .js
-                .replace(/src=".+(\.ts)"/g, (match) => {
-                  return match.replace('.ts"', '.js"');
-                })
-            );
+      new CopyPlugin({
+        patterns: [
+          {
+            from: path.join(ext.pathToSrc, htmlFile),
+            to: path.join(ext.pathToUnpacked, htmlFile),
+            transform(content: any) {
+              return (
+                content
+                  .toString()
+                  // Transform .tsx into .js
+                  .replace(/src=".+(\.tsx)"/g, (match: any) => {
+                    return match.replace('.tsx"', '.js"');
+                  })
+                  // Transform .jsx into .js
+                  .replace(/src=".+(\.jsx)"/g, (match: any) => {
+                    return match.replace('.jsx"', '.js"');
+                  })
+                  // Transform .ts into .js
+                  .replace(/src=".+(\.ts)"/g, (match: any) => {
+                    return match.replace('.ts"', '.js"');
+                  })
+              );
+            },
           },
-        },
-      ]),
+        ],
+      })
     );
   });
 
   return {
     entry: webpackEntries,
     plugins: webpackPlugins,
-    reloader: new ExtensionReloader({
-      entries: reloaderEntries,
-    }),
+    // reloader: new ExtensionReloader({
+    //   entries: reloaderEntries,
+    // }),
   };
 }

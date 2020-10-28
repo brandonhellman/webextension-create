@@ -1,7 +1,6 @@
-import webpack from 'webpack';
-
 import { archiveUnpacked } from '../utils/archiveUnpacked';
 import { config } from '../webpack/config';
+import webpack from 'webpack';
 
 export function build() {
   const { production } = config();
@@ -25,7 +24,11 @@ export function build() {
       console.warn(info.warnings);
     }
 
-    console.log(`Compiled in ${stats.endTime && stats.startTime ? stats.endTime - stats.startTime : '?'}ms!`);
+    console.log(
+      `Compiled in ${
+        stats.endTime && stats.startTime ? stats.endTime - stats.startTime : '?'
+      }ms!`
+    );
     console.log();
 
     archiveUnpacked();

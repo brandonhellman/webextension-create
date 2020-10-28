@@ -1,13 +1,13 @@
-import { CleanWebpackPlugin } from 'clean-webpack-plugin';
-
-import { webextension } from './webextension';
 import * as ext from '../utils/ext';
 
-export function config() {
-  const webext = webextension();
+import { webextension } from './webextension';
+import webpack from 'webpack';
 
-  const config = {
-    entry: webext.entry,
+export function config() {
+  const { entry, plugins } = webextension();
+
+  const config: webpack.Configuration = {
+    entry,
 
     output: {
       path: ext.pathToUnpacked,
@@ -33,17 +33,21 @@ export function config() {
               ],
               plugins: [
                 require.resolve('@babel/plugin-transform-runtime'),
-                require.resolve('@babel/plugin-proposal-nullish-coalescing-operator'),
+                require.resolve(
+                  '@babel/plugin-proposal-nullish-coalescing-operator'
+                ),
                 require.resolve('@babel/plugin-proposal-optional-chaining'),
               ],
             },
           },
         },
+        /*
         {
           enforce: 'pre',
           test: /\.js$/,
           loader: require.resolve('source-map-loader'),
         },
+        */
         {
           test: /\.css$/,
           use: [require.resolve('style-loader'), require.resolve('css-loader')],
@@ -60,17 +64,18 @@ export function config() {
     },
   };
 
-  return {
-    development: {
-      ...config,
-      mode: 'development',
-      devtool: 'source-map',
-      plugins: [...webext.plugins, webext.reloader],
-    },
-    production: {
-      ...config,
-      mode: 'production',
-      plugins: [new CleanWebpackPlugin(), ...webext.plugins],
-    },
+  const development: webpack.Configuration = {
+    ...config,
+    mode: 'development',
+    devtool: 'source-map',
+    plugins: plugins,
   };
+
+  const production: webpack.Configuration = {
+    ...config,
+    mode: 'production',
+    plugins: plugins,
+  };
+
+  return { development, production };
 }
