@@ -23,19 +23,19 @@
     "prepare": "tsc && node build.js"
   },
   "dependencies": {
-    "@babel/core": "^7.12.3",
+    "@babel/core": "^7.12.9",
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.12.1",
-    "@babel/plugin-proposal-optional-chaining": "^7.12.1",
+    "@babel/plugin-proposal-optional-chaining": "^7.12.7",
     "@babel/plugin-transform-runtime": "^7.12.1",
-    "@babel/preset-env": "^7.12.1",
-    "@babel/preset-react": "^7.12.5",
-    "@babel/preset-typescript": "^7.12.1",
+    "@babel/preset-env": "^7.12.7",
+    "@babel/preset-react": "^7.12.7",
+    "@babel/preset-typescript": "^7.12.7",
     "@babel/runtime": "^7.12.5",
-    "archiver": "^5.0.2",
-    "babel-loader": "^8.2.1",
+    "archiver": "^5.1.0",
+    "babel-loader": "^8.2.2",
     "chalk": "^4.1.0",
     "commander": "^6.2.0",
-    "copy-webpack-plugin": "^6.3.0",
+    "copy-webpack-plugin": "^6.3.2",
     "cross-spawn": "^7.0.3",
     "css-loader": "^5.0.1",
     "file-loader": "^6.2.0",
@@ -47,18 +47,20 @@
     "source-map-loader": "^1.1.2",
     "style-loader": "^2.0.0",
     "webextension-polyfill": "^0.7.0",
-    "webextension-polyfill-ts": "^0.21.0",
-    "webpack": "^5.4.0"
+    "webextension-polyfill-ts": "^0.22.0",
+    "webpack": "^5.9.0"
   },
   "devDependencies": {
-    "@types/archiver": "^3.1.1",
+    "@types/archiver": "^5.1.0",
+    "@types/copy-webpack-plugin": "^6.3.0",
     "@types/cross-spawn": "^6.0.2",
     "@types/flat": "^5.0.1",
-    "@types/fs-extra": "^9.0.3",
+    "@types/fs-extra": "^9.0.4",
+    "@types/generate-json-webpack-plugin": "^0.3.1",
     "@types/jsdom": "^16.2.5",
-    "@types/node": "^14.14.7",
+    "@types/node": "^14.14.10",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "typescript": "^4.0.5"
+    "typescript": "^4.1.2"
   }
 }
