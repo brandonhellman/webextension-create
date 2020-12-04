@@ -179,20 +179,20 @@ export function webextension() {
           {
             from: path.join(ext.pathToSrc, htmlFile),
             to: path.join(ext.pathToUnpacked, htmlFile),
-            transform(content) {
+            transform(content: any) {
               return (
                 content
                   .toString()
                   // Transform .tsx into .js
-                  .replace(/src=".+(\.tsx)"/g, (match) => {
+                  .replace(/src=".+(\.tsx)"/g, (match: any) => {
                     return match.replace('.tsx"', '.js"');
                   })
                   // Transform .jsx into .js
-                  .replace(/src=".+(\.jsx)"/g, (match) => {
+                  .replace(/src=".+(\.jsx)"/g, (match: any) => {
                     return match.replace('.jsx"', '.js"');
                   })
                   // Transform .ts into .js
-                  .replace(/src=".+(\.ts)"/g, (match) => {
+                  .replace(/src=".+(\.ts)"/g, (match: any) => {
                     return match.replace('.ts"', '.js"');
                   })
               );
