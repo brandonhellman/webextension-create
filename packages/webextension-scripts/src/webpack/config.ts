@@ -41,13 +41,11 @@ export function config() {
             },
           },
         },
-        /*
         {
           enforce: 'pre',
           test: /\.js$/,
           loader: require.resolve('source-map-loader'),
         },
-        */
         {
           test: /\.css$/,
           use: [require.resolve('style-loader'), require.resolve('css-loader')],
