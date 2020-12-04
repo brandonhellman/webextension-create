@@ -10,7 +10,7 @@ import fs from 'fs-extra';
 import glob from 'glob';
 import path from 'path';
 
-// import ExtensionReloader from 'webpack-extension-reloader/dist/webpack-extension-reloader';
+import ExtensionReloader from 'webpack-extension-reloader/dist/webpack-extension-reloader';
 
 interface ReloaderEntries {
   background: string;
@@ -59,9 +59,12 @@ export function webextension() {
       .replace(/\.tsx"/g, '.js"')
       .replace(/\.ts"/g, '.js"');
 
-    webpackPlugins.push(
-      new GenerateJsonPlugin('manifest.json', JSON.parse(replaced))
+    const plugin = new GenerateJsonPlugin(
+      'manifest.json',
+      JSON.parse(replaced)
     );
+
+    webpackPlugins.push(plugin as WebpackPluginInstance);
   }
 
   // Look for any .png in the manifest and copy it over.
@@ -176,20 +179,20 @@ export function webextension() {
           {
             from: path.join(ext.pathToSrc, htmlFile),
             to: path.join(ext.pathToUnpacked, htmlFile),
-            transform(content: any) {
+            transform(content) {
               return (
                 content
                   .toString()
                   // Transform .tsx into .js
-                  .replace(/src=".+(\.tsx)"/g, (match: any) => {
+                  .replace(/src=".+(\.tsx)"/g, (match) => {
                     return match.replace('.tsx"', '.js"');
                   })
                   // Transform .jsx into .js
-                  .replace(/src=".+(\.jsx)"/g, (match: any) => {
+                  .replace(/src=".+(\.jsx)"/g, (match) => {
                     return match.replace('.jsx"', '.js"');
                   })
                   // Transform .ts into .js
-                  .replace(/src=".+(\.ts)"/g, (match: any) => {
+                  .replace(/src=".+(\.ts)"/g, (match) => {
                     return match.replace('.ts"', '.js"');
                   })
               );
@@ -203,8 +206,8 @@ export function webextension() {
   return {
     entry: webpackEntries,
     plugins: webpackPlugins,
-    // reloader: new ExtensionReloader({
-    //   entries: reloaderEntries,
-    // }),
+    reloader: new ExtensionReloader({
+      entries: reloaderEntries,
+    }),
   };
 }
