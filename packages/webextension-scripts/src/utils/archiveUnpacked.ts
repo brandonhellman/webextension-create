@@ -3,7 +3,7 @@ import fs from 'fs-extra';
 
 import * as ext from './ext';
 
-function archiveCreate(target: 'chrome' | 'firefox' | 'opera' | 'source') {
+function archiveCreate(target: 'chrome' | 'firefox' | 'source'): Promise<void> {
   return new Promise((resolve, reject) => {
     const name = `${target}-${ext.packageJson.version}`;
     const path = `build/${name}.zip`;
@@ -42,7 +42,7 @@ function archiveCreate(target: 'chrome' | 'firefox' | 'opera' | 'source') {
     });
 
     // good practice to catch this error explicitly
-    archive.on('error', function(err) {
+    archive.on('error', function (err) {
       throw err;
     });
 
@@ -55,7 +55,6 @@ function archiveCreate(target: 'chrome' | 'firefox' | 'opera' | 'source') {
         archive.directory(ext.pathToUnpacked, name);
         break;
       case 'firefox':
-      case 'opera':
         archive.directory(ext.pathToUnpacked, false);
         break;
       case 'source':
@@ -73,11 +72,10 @@ function archiveCreate(target: 'chrome' | 'firefox' | 'opera' | 'source') {
 export async function archiveUnpacked() {
   const chrome = archiveCreate('chrome');
   const firefox = archiveCreate('firefox');
-  const opera = archiveCreate('opera');
   const source = archiveCreate('source');
 
   try {
-    await Promise.all([chrome, firefox, opera, source]);
+    await Promise.all([chrome, firefox, source]);
 
     console.log();
     console.log('Success! Done compiling and archiving production folders');
