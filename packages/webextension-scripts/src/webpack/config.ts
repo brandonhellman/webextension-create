@@ -1,7 +1,8 @@
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin';
 
-import { webextension } from './webextension';
 import * as ext from '../utils/ext';
+import { webextension } from './webextension';
 
 export function config() {
   const webext = webextension();
@@ -15,6 +16,7 @@ export function config() {
 
     resolve: {
       extensions: ['.ts', '.tsx', '.js', '.jsx', '.css'],
+      plugins: [new TsconfigPathsPlugin()],
     },
 
     module: {
@@ -33,7 +35,9 @@ export function config() {
               ],
               plugins: [
                 require.resolve('@babel/plugin-transform-runtime'),
-                require.resolve('@babel/plugin-proposal-nullish-coalescing-operator'),
+                require.resolve(
+                  '@babel/plugin-proposal-nullish-coalescing-operator'
+                ),
                 require.resolve('@babel/plugin-proposal-optional-chaining'),
               ],
             },
